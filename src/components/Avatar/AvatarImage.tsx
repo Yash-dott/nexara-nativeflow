@@ -1,6 +1,6 @@
 import React from "react";
 import { Image } from "react-native";
-import type { ImageStyle, StyleProp, ViewStyle } from "react-native";
+import type { ImageProps, ImageStyle, StyleProp, ViewStyle } from "react-native";
 import { StyledView } from "../StyledComponents";
 import { verticalScale } from "../../helpers/ResponsiveCalculations";
 import { useTheme } from "../../hooks";
@@ -8,8 +8,9 @@ import { useTheme } from "../../hooks";
 
 type AvatarImageProps = {
     size?: number;
-    source?: object;
+    source?: { uri?: string } | number;
     bg?: string;
+    resizeMode?: NonNullable<ImageProps['resizeMode']>;
     containerStyle?: StyleProp<ViewStyle>;
     imageStyle?: StyleProp<ImageStyle>;
 }
@@ -18,6 +19,7 @@ const AvatarImage: React.FC<AvatarImageProps> = ({
     size = 60,
     source,
     bg,
+    resizeMode = 'cover',
     containerStyle,
     imageStyle
 }) => {
@@ -27,17 +29,17 @@ const AvatarImage: React.FC<AvatarImageProps> = ({
     return (<>
         <StyledView
             backgroundColor={bg ?? theme.colors.primary}
-            alignSelf='flex-start'
+            // alignSelf='flex-start'
             height={verticalScale(size)}
             width={verticalScale(size)}
-            borderRadius={verticalScale(50)}
+            borderRadius={verticalScale(size)}
             overflow='hidden'
             style={containerStyle}
         >
             <Image
                 source={source}
                 style={[{ height: '100%', width: '100%' }, imageStyle]}
-                resizeMode='cover'
+                resizeMode={resizeMode}
             />
         </StyledView>
     </>)

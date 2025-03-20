@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import type { TextProps, TextStyle, ColorValue, StyleProp } from "react-native";
 import { responsiveFontSize } from '../../helpers/ResponsiveCalculations';
 import { useTheme } from '../../hooks';
-import { typographySizes } from '../../constants';
+// import { typographySizes } from '../../constants';
 import type { FontWeight, TypographyVariant } from '../../types/styledTextTypes';
 
 
@@ -22,7 +22,7 @@ type StyledTextProps = TextProps & {
 }
 
 const StyledText: React.FC<StyledTextProps> = ({
-    variant = 'h6',
+    variant = 'h5',
     children,
     style,
     ff,
@@ -36,16 +36,17 @@ const StyledText: React.FC<StyledTextProps> = ({
     ...props
 }) => {
 
-    const theme: any = useTheme();
+    const { colors, typography: { variantSizes } }: any = useTheme();
 
     return (<>
         <Text
+            allowFontScaling={false}
             style={[{
-                fontSize: responsiveFontSize(fs ?? typographySizes[variant]),
+                fontSize: responsiveFontSize(fs ?? variantSizes[variant]),
                 fontFamily: ff ?? '',
                 textAlign: tas ? 'center' : 'auto',
                 fontWeight: fw ?? 'normal',
-                color: color ?? (themeColor && theme.colors.primary || primary && theme.colors.textPrimary || secondary && theme.colors.textSecondary || theme.colors.textTertiary),
+                color: color ?? (themeColor && colors.primary || primary && colors.textPrimary || secondary && colors.textSecondary || colors.textTertiary),
             },
                 style,
             ]}

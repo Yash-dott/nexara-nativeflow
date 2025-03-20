@@ -1,20 +1,30 @@
 import React from "react";
-import { StyledView } from "../StyledComponents";
 import { verticalScale } from "../../helpers/ResponsiveCalculations";
+import { useTheme } from "../../hooks";
 
 
 type IconProps = {
     renderIcon: JSX.Element;
+    color?: string;
 }
 
 const Icon: React.FC<IconProps> = ({
     renderIcon,
+    color
 }) => {
+    let theme = null;
+    if (!color && !renderIcon?.props.color) {
+        theme = useTheme();
+    }
 
     return (<>
-        <StyledView>
-            {React.cloneElement(renderIcon as React.ReactElement<any>, { ...renderIcon?.props, size: verticalScale(renderIcon?.props?.size ?? 15) })}
-        </StyledView>
+        {React.cloneElement(renderIcon as React.ReactElement<any>,
+            {
+                ...renderIcon?.props,
+                size: verticalScale(renderIcon?.props?.size ?? 15),
+                color: color ?? (renderIcon?.props.color ?? theme?.colors.iconPrimary)
+            }
+        )}
     </>)
 }
 export default Icon;

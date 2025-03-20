@@ -9,13 +9,14 @@ type MenuItemProps = TouchableOpacityProps & {
     paddingV?: number;
     paddingH?: number;
     gap?: number;
+    name?: string;
     style?: StyleProp<ViewStyle>;
     children?: ReactNode;
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
     paddingV = 12,
-    paddingH = 15,
+    paddingH = 12,
     gap = 10,
     style,
     children,

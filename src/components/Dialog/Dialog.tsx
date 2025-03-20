@@ -4,6 +4,7 @@ import { Keyboard, BackHandler } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
 import { dialogSizes } from '../../constants';
 import Portal from '../Portal/Portal';
+// import { useTheme } from '../../hooks';
 
 
 

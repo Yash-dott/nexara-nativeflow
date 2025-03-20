@@ -16,7 +16,7 @@ type ProviderProps = {
 }
 type ThemeContextType = {
     isResponsive?: boolean;
-    theme?: object & { toggleThemeMode: () => void };
+    theme?: ThemeTypes & { toggleThemeMode: () => void };
     mode?: 'dark' | 'light';
 }
 
@@ -32,7 +32,7 @@ const NativeProvider: React.FC<ProviderProps> = ({
     const [mode, setMode] = useState<themeType>('light');
 
     const toggleThemeMode = () => setMode(mode === 'dark' ? 'light' : 'dark');
-    const setTheme = { ...(theme ? theme[mode] : theme ?? (mode === 'light' ? LightTheme : DarkTheme)), toggleThemeMode };
+    const setTheme = { ...((theme && theme[mode]) || (mode === 'light' ? LightTheme : DarkTheme)), toggleThemeMode };
     const value = useMemo(() => ({ theme: setTheme, isResponsive, mode }), [theme, mode]);
 
     return (<>

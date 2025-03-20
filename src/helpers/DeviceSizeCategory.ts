@@ -1,5 +1,5 @@
 import { Dimensions } from "react-native";
-import { BreakPoints } from "../constants/breakPoints";
+import { BreakPoints } from "../constants";
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 

@@ -13,57 +13,45 @@ const guidelineBaseWidth = 350;
 const guidelineBaseHeight = 680;
 const [shortDimension, longDimension] = SCREEN_WIDTH < SCREEN_HEIGHT ? [SCREEN_WIDTH, SCREEN_HEIGHT] : [SCREEN_HEIGHT, SCREEN_WIDTH];
 
-const isTablet = () => {
-    const aspectRatio = SCREEN_HEIGHT / SCREEN_WIDTH;
-    return aspectRatio < 1.6 && longDimension >= 900;
-};
 
-export const horizontalScale = (size: number) => {
-    const baseScaleFactor = shortDimension / guidelineBaseWidth;
-    let scaledValue;
-
-    if (isResponsive) {
-        if (isTablet()) {
-            scaledValue = size * (baseScaleFactor * 1);  
-        } else {
-            const clampedScaleFactor = Math.max(0.9, Math.min(baseScaleFactor, 1.2));
-            scaledValue = size * clampedScaleFactor;
-        }
-    } else {
-        scaledValue = size + 3;
+const checkIsPhone = (size: number): number => {
+    if (SCREEN_WIDTH <= 430 && SCREEN_WIDTH >= 375) {
+        return size;
     }
-
-    return Math.round(PixelRatio.roundToNearestPixel(scaledValue));
+    return 0;
+}
+export const horizontalScale = (size: number): number => {
+    if (checkIsPhone(size)) {
+        return size;
+    }
+    const slowDownRate = SCREEN_WIDTH < 375 ? 2 : 0.40;
+    let scale = (shortDimension / guidelineBaseHeight);
+    scale = 1 + (scale - 1) * slowDownRate;
+    let adjustedSize = size * Math.max(scale, 0.80);
+    return Math.floor(PixelRatio.roundToNearestPixel(adjustedSize));
 }
 
 
-export const verticalScale = (size: number) => {
-    const baseScaleFactor = longDimension / guidelineBaseHeight;
-    let scaledValue;
-
-    if (isResponsive) {
-        if (isTablet()) {
-            scaledValue = size * (baseScaleFactor * 1);  
-        } else {
-            const clampedScaleFactor = Math.max(0.9, Math.min(baseScaleFactor, 1.2));
-            scaledValue = size * clampedScaleFactor;
-        }
-    } else {
-        scaledValue = size + 3;
+export const verticalScale = (size: number): number => {
+    if (checkIsPhone(size)) {
+        return size;
     }
-
-    return Math.round(PixelRatio.roundToNearestPixel(scaledValue));
+    const slowDownRate = SCREEN_WIDTH < 375 ? 2 : 0.40;
+    let scale = (longDimension / guidelineBaseHeight);
+    scale = 1 + (scale - 1) * slowDownRate;
+    let adjustedSize = size * Math.max(scale, 0.80);
+    return Math.floor(PixelRatio.roundToNearestPixel(adjustedSize));
 }
 
 
-export const moderateScale = (size: number, factor = 0.5) => {
+export const moderateScale = (size: number, factor = 0.5): number => {
     if (isResponsive) {
         return size + ((shortDimension / guidelineBaseWidth * size) - size) * factor;
     } else {
         return size + factor + 1;
     }
 }
-export const moderateVerticalScale = (size: number, factor = 0.5) => {
+export const moderateVerticalScale = (size: number, factor = 0.5): number => {
     if (isResponsive) {
         return size + (longDimension / guidelineBaseHeight * size) * factor;
     } else {
@@ -71,30 +59,20 @@ export const moderateVerticalScale = (size: number, factor = 0.5) => {
     }
 }
 
-
 export const responsiveFontSize = (fontSize: number): number => {
-    if (!isResponsive) return fontSize + 3;
-    const screenDiagonal = Math.sqrt(Math.pow(SCREEN_WIDTH, 2) + Math.pow(SCREEN_HEIGHT, 2));
-    const baseScreenWidth = 360;
-    const baseScreenDiagonal = Math.sqrt(Math.pow(baseScreenWidth, 2) + Math.pow(640, 2));
-    const scale = screenDiagonal / baseScreenDiagonal;
-    const adjustedFontSize = fontSize * scale;
-    return PixelRatio.roundToNearestPixel(adjustedFontSize);
-};
-
-export const responsiveWidth = (width: number): number => {
-    const baseScreenWidth = 392;
-    if (!isResponsive) return baseScreenWidth * width / 100
-    return SCREEN_WIDTH * width / 100;
-};
-
-export const responsiveHeight = (height: number): number => {
-    // console.log(SCREEN_HEIGHT < SCREEN_WIDTH)
-    const baseScreenHeight = 838;
-    if (!isResponsive) return baseScreenHeight * height / 100
-    if (SCREEN_HEIGHT < SCREEN_WIDTH) {
-        // return baseScreenHeight * height / 100
-        return (SCREEN_HEIGHT * height / 100);
+    if (checkIsPhone(fontSize)) {
+        return fontSize;
     }
-    return SCREEN_HEIGHT * height / 100;
+    const slowDownRate = SCREEN_WIDTH < 375 ? 2 : 0.20
+    const screenDiagonal = Math.sqrt(SCREEN_WIDTH ** 2 + SCREEN_HEIGHT ** 2);
+    const baseScreenDiagonal = Math.sqrt(360 ** 2 + 640 ** 2);
+    let scale = screenDiagonal / baseScreenDiagonal;
+    scale = 1 + (scale - 1) * slowDownRate;
+    let adjustedFontSize = fontSize * Math.max(scale, 0.85);
+    return Math.floor(PixelRatio.roundToNearestPixel(adjustedFontSize))
 };
+
+
+
+
+

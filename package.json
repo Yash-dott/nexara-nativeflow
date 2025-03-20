@@ -188,5 +188,8 @@
     "languages": "js",
     "type": "library",
     "version": "0.48.3"
+  },
+  "dependencies": {
+    "lucide-react-native": "^0.479.0"
   }
 }

@@ -1,13 +1,18 @@
 import React from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import type { StyleProp, TextStyle, ViewStyle } from "react-native";
-import { moderateScale, responsiveFontSize } from '../../helpers/ResponsiveCalculations';
+import { moderateScale } from '../../helpers/ResponsiveCalculations';
 import { X } from '../../assets/svg';
+import { StyledText } from '../StyledComponents';
+import type { TypographyVariant } from '../../types/styledTextTypes';
+// import { useTheme } from '../../hooks';
 
 
 type DialogHeadProps = {
     variant?: 'classic' | 'default';
     title?: string;
+    textVariant?: TypographyVariant;
+    fs?: number;
     containerStyle?: StyleProp<ViewStyle>;
     textStyle?: StyleProp<TextStyle>;
     children?: React.ReactNode;
@@ -16,10 +21,15 @@ type DialogHeadProps = {
 const DialogHead: React.FC<DialogHeadProps> = ({
     variant = 'default',
     title = 'Title',
+    textVariant = 'h4',
+    fs,
     containerStyle,
     textStyle,
     children
 }) => {
+    // const { colors, typography: { variantSizes } }: any = useTheme();
+
+    // console.log(responsiveFontSize(variantSizes.h4))
 
     const STYLES = StyleSheet.create({
         CONTAINER: {
@@ -31,7 +41,7 @@ const DialogHead: React.FC<DialogHeadProps> = ({
             flexDirection: 'row',
         },
         HEADER_TEXT: {
-            fontSize: responsiveFontSize(15),
+            // fontSize: responsiveFontSize(15),
             fontWeight: 'bold',
             color: '#000',
         }
@@ -40,7 +50,7 @@ const DialogHead: React.FC<DialogHeadProps> = ({
 
         <View style={[STYLES.CONTAINER, containerStyle]}>
             <View>
-                <Text style={[STYLES.HEADER_TEXT, textStyle]}>{title}</Text>
+                <StyledText style={[STYLES.HEADER_TEXT, textStyle]} fs={fs} variant={textVariant}>{title}</StyledText>
                 {children}
             </View>
             <TouchableOpacity>

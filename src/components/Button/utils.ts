@@ -71,6 +71,20 @@ const getButtonBackgroundColor = ({
     return theme.colors.primary;
 };
 
+
+const getButtonIconColor = ({
+    theme,
+    disabled
+}: {
+    theme: ThemeTypes;
+    disabled: boolean;
+}) => {
+    if (disabled) {
+        return theme.colors.iconDisable;
+    }
+    return theme.colors.iconSecondary;
+};
+
 const getButtonColors = ({
     theme,
     variant,
@@ -107,11 +121,16 @@ const getButtonColors = ({
         strokeColor,
         disabled
     });
+    const buttonIconColor = getButtonIconColor({
+        theme,
+        disabled
+    });
 
     return {
         backgroundColor,
         buttonTextColor,
-        buttonBorderColor
+        buttonBorderColor,
+        buttonIconColor
     }
 };
 

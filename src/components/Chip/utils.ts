@@ -52,7 +52,7 @@ const getTextColor = ({
     else if (checkVariant('outlined')) {
         return color ?? 'gray'
     }
-    return theme.colors.textSecondary;
+    return theme.colors.textTertiary;
 };
 
 const getBgColor = ({
@@ -73,7 +73,7 @@ const getBgColor = ({
         return bg
     }
     else if (checkVariant('contained')) {
-        return theme.colors.primary;
+        return theme.colors.secondary;
     }
     else if (checkVariant('outlined')) {
         return 'transparent';

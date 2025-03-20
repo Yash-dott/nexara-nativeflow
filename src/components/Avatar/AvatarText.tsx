@@ -16,7 +16,7 @@ type AvatarTextProps = {
 
 const AvatarText: React.FC<AvatarTextProps> = ({
     size = 60,
-    fs = 16,
+    fs,
     text = 'YH',
     bg,
     containerStyle,
@@ -27,16 +27,16 @@ const AvatarText: React.FC<AvatarTextProps> = ({
 
     return (<>
         <StyledView
-            backgroundColor={bg ?? theme.colors.primary}
-            alignSelf='flex-start'
-            height={verticalScale(size)}
-            width={verticalScale(size)}
+            bg={bg ?? theme.colors.primary}
+            // alignSelf='flex-start'
+            h={verticalScale(size)}
+            w={verticalScale(size)}
             align='center'
             justify='center'
-            borderRadius={verticalScale(50)}
+            borderRadius={verticalScale(size)}
             style={containerStyle}
         >
-            <StyledText secondary fw='bold' fs={fs} style={textStyle}>{text}</StyledText>
+            <StyledText secondary fw='bold' fs={fs ?? (size / 3)} style={textStyle}>{text}</StyledText>
         </StyledView>
     </>)
 }

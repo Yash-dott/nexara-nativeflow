@@ -32,7 +32,7 @@ const HStack: React.FC<HStackProps> = ({
     return (<>
         <View
             {...viewProps}
-            style={containerStyle}
+            style={[containerStyle, { flexDirection: 'row' }]}
             {...rest}
         >
             {children}

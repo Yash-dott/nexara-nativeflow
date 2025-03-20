@@ -6,6 +6,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-na
 import { useTheme } from "../../hooks";
 import { horizontalScale, verticalScale } from "../../helpers/ResponsiveCalculations";
 import { Check } from "../../assets/svg";
+import type { TypographyVariant } from "../../types/styledTextTypes";
 
 
 type CheckBoxProps = {
@@ -18,7 +19,8 @@ type CheckBoxProps = {
     disableBuiltInState?: boolean,
     disabled?: boolean,
     text?: string,
-    textSize?: number,
+    fs?: number,
+    textVariant?: TypographyVariant,
     size?: number,
     iconSize?: number,
     containerStyle?: StyleProp<ViewStyle>,
@@ -37,7 +39,8 @@ const CheckBox: React.FC<CheckBoxProps> = ({
     disableBuiltInState = false,
     disabled = false,
     text,
-    textSize,
+    fs,
+    textVariant = 'h5',
     size = 18,
     iconSize,
     containerStyle,
@@ -52,9 +55,9 @@ const CheckBox: React.FC<CheckBoxProps> = ({
     }, [defaultValue]);
 
     const scaleVal = useSharedValue(1);
-    const { colors, isDark }: any = useTheme();
+    const { colors }: any = useTheme();
     activeBgColor = disabled ? colors.disable : activeBgColor ?? colors.primary;
-    iconSize = iconSize ?? size - 2;
+    iconSize = iconSize ?? size / 1.5;
     const bgColor = (!disableBuiltInState && isCheckboxChecked) || (disableBuiltInState && isChecked) ? activeBgColor : inActiveBgColor;
 
     const STYLES = StyleSheet.create({
@@ -71,7 +74,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
             borderColor: disabled ? colors.disable : activeBgColor,
             alignItems: 'center',
             justifyContent: 'center',
-            borderRadius: variant === 'square' ? 5 : verticalScale(50),
+            borderRadius: variant === 'square' ? 5 : verticalScale(size),
             padding: verticalScale(7),
             backgroundColor: bgColor,
         }
@@ -87,7 +90,6 @@ const CheckBox: React.FC<CheckBoxProps> = ({
             setIsCheckboxChecked(!isCheckboxChecked);
         } else {
             onPress?.(!isChecked);
-            setIsCheckboxChecked(!isChecked);
         }
     };
     return (<>
@@ -103,14 +105,14 @@ const CheckBox: React.FC<CheckBoxProps> = ({
                     {
                         (disableBuiltInState ? isChecked : isCheckboxChecked) &&
                         <Check
-                            color={iconColor ?? isDark ? '#000' : '#fff'}
+                            color={iconColor ?? colors.iconSecondary}
                             size={verticalScale(iconSize)}
                         />
                     }
                 </Animated.View>
                 {
                     text &&
-                    <StyledText style={textStyle} fs={textSize} variant="h7" primary>{text}</StyledText>
+                    <StyledText style={textStyle} fs={fs} variant={textVariant} primary>{text}</StyledText>
                 }
 
             </StyledView>

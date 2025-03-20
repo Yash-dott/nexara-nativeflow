@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from "react-native";
 import type { ViewStyle, StyleProp } from "react-native";
 import { StyledView } from '../StyledComponents';
+import { useTheme } from '../../hooks';
 
 
 type DividerProps = {
@@ -12,14 +13,17 @@ type DividerProps = {
 
 const Divider: React.FC<DividerProps> = ({
     thickness = 0.2,
-    color = '#DCDBDB',
+    // color = '#DCDBDB',
+    color,
     style
 }) => {
+
+    const {colors} = useTheme();
 
     const STYLES = StyleSheet.create({
         CONTAINER: {
             borderWidth: thickness,
-            borderColor: color
+            borderColor: color ?? colors.dividerColor
         }
     });
 

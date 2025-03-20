@@ -26,12 +26,12 @@ const TouchableRipple: React.FC<TouchableRippleProps> = ({
     const scale = useSharedValue(0);
     const opacity = useSharedValue(1);
 
-
     const STYLES = StyleSheet.create({
         OVERLAY: {
             position: 'absolute',
             top: 0,
             left: 0,
+            zIndex: -1
         }
     });
 
@@ -53,7 +53,7 @@ const TouchableRipple: React.FC<TouchableRippleProps> = ({
         }
     });
 
-    const onGesturePress = Gesture.Tap().runOnJS(true).onTouchesDown(({ allTouches }: { allTouches: any }) => {
+    const onGesturePress = !props.disabled ? Gesture.Tap().runOnJS(true).onTouchesDown(({ allTouches }: { allTouches: any }) => {
         positionX.value = allTouches[0].x;
         positionY.value = allTouches[0].y;
         opacity.value = 1;
@@ -63,12 +63,12 @@ const TouchableRipple: React.FC<TouchableRippleProps> = ({
         opacity.value = withTiming(0, { duration: 800 });
     }).onTouchesCancelled(() => {
         opacity.value = withTiming(0, { duration: 800 });
-    });
+    }) : Gesture.Simultaneous();
 
 
     return (<>
         <GestureHandlerRootView style={{ width: '100%' }}>
-            <GestureDetector gesture={onGesturePress} >
+            <GestureDetector gesture={onGesturePress}>
                 <Pressable
                     {...props}
                 >
@@ -81,9 +81,9 @@ const TouchableRipple: React.FC<TouchableRippleProps> = ({
                         style={style}
                     >
                         {/* <Animated.View ref={aRef} style={{ overflow: 'hidden' }}> */}
-                        <StyledView>
+                        {/* <StyledView> */}
                             {children}
-                        </StyledView>
+                        {/* </StyledView> */}
                         <Animated.View style={[STYLES.OVERLAY, effectAnimatedStyle]} />
                         {/* </Animated.View> */}
                     </StyledView>

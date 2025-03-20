@@ -15,7 +15,7 @@ const MenuItemLabel: React.FC<MenuItemLabelProps> = ({
     fs,
     style,
     children,
-    textVariant = 'h6',
+    textVariant = 'h5',
     ...rest
 }) => {
 
@@ -24,7 +24,10 @@ const MenuItemLabel: React.FC<MenuItemLabelProps> = ({
             fs={fs}
             variant={textVariant}
             color="#000"
-            style={style}
+            numberOfLines={1}
+            flexShrink={1}
+            // style={[style, {fontSize: 14}]}
+            // style={[style, {fontSize: responsiveFontSize(14)}]}
             {...rest}
         >
             {children}

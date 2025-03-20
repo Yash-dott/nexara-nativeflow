@@ -50,7 +50,7 @@ const Grid: React.FC<GridProps> = ({
         lg,
         xl,
     });
-    console.log((calculatedGridValue / size) * 100)
+    // console.log((calculatedGridValue / size) * 100)
     const STYLES = StyleSheet.create({
         MAIN_CONT: {
             width: item ? `${((calculatedGridValue / size) * 100)}%` : "100%",

@@ -94,7 +94,7 @@ const Menu: React.FC<MenuProps> = ({
 
     const STYLES = StyleSheet.create({
         CONTAINER: {
-            width: horizontalScale(120),
+            width: horizontalScale(130),
             shadowColor: "#000",
             backgroundColor: '#fff',
             shadowOffset: {
@@ -108,7 +108,7 @@ const Menu: React.FC<MenuProps> = ({
             left: positions.left,
             top: positions.top,
             borderRadius: 5,
-            maxHeight: 400
+            maxHeight: 400,
         }
     });
 
@@ -138,7 +138,7 @@ const Menu: React.FC<MenuProps> = ({
             </Pressable>
         </Portal>
 
-        <StyledView zIndex={999} alignItems='flex-start'>
+        <StyledView  alignItems='flex-start'>
             <View ref={buttonRef} onLayout={measureLayout}>
                 {anchor && React.cloneElement(anchor, { onPress: onOpen })}
             </View>

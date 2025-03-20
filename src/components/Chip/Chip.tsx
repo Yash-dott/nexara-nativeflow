@@ -33,7 +33,7 @@ const Chip: React.FC<ChipProps> = ({
     bg,
     titleColor,
     fs,
-    stroke = 0.7,
+    stroke = 0.9,
     strokeColor,
     color,
     rippleColor,

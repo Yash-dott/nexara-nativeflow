@@ -19,10 +19,10 @@ const IconButton: React.FC<IconButtonProps> = ({
 }) => {
 
     return (<>
-        <StyledView>
+        <StyledView style={{ alignSelf: 'flex-start' }}>
             <TouchableRipple
                 rippleColor={rippleColor}
-                style={{ borderRadius: 100, padding: verticalScale(8), alignSelf: 'flex-start' }}
+                style={{ borderRadius: 100, padding: verticalScale(8) }}
                 {...rest}
             >
                 <Icon

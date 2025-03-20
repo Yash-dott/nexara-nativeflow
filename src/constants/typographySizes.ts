@@ -1,4 +1,4 @@
-type typographySizes = {
+type typographySizeTypes = {
     h1: number,
     h2: number,
     h3: number,
@@ -8,7 +8,7 @@ type typographySizes = {
     h7: number,
 }
 
-const typographySizes: typographySizes = {
+const typographySizes: typographySizeTypes = {
     h1: 32,
     h2: 24,
     h3: 18,
@@ -19,3 +19,4 @@ const typographySizes: typographySizes = {
 }
 
 export default typographySizes;
+export type { typographySizeTypes };

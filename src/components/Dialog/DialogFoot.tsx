@@ -24,6 +24,8 @@ const DialogFoot: React.FC<DialogFootProps> = ({
             borderColor: '#d4d4d4',
             padding: moderateScale(variant === 'default' ? 16 : 20),
             paddingHorizontal: moderateScale(variant === 'default' ? 16 : 25),
+            justifyContent:'flex-end',
+            gap: moderateScale(15)
         },
     });
     return (<>

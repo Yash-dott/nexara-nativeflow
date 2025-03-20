@@ -1,4 +1,4 @@
-type sizes = {
+type dialogSizesTypes = {
     xs: number,
     sm: number,
     md: number,
@@ -6,7 +6,7 @@ type sizes = {
     full: number,
 };
 
-const dialogSizes: sizes = {
+const dialogSizes: dialogSizesTypes = {
     xs: 60,
     sm: 70,
     md: 80,
@@ -15,3 +15,4 @@ const dialogSizes: sizes = {
 };
 
 export default dialogSizes;
+export type { dialogSizesTypes }

@@ -1,4 +1,4 @@
-type BreakPointType = {
+type BreakPointsType = {
     xs: number,
     sm: number,
     md: number,
@@ -6,10 +6,13 @@ type BreakPointType = {
     xl: number,
 }
 
-export const BreakPoints: BreakPointType = {
+const BreakPoints: BreakPointsType = {
     xs: 0,
     sm: 360,
     md: 600,
     lg: 768,
     xl: 960
 }
+
+export default BreakPoints;
+export type { BreakPointsType };

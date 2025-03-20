@@ -8,7 +8,6 @@ const getGridValue = (propsSizeObj: Record<string, number>) => {
     const propsSizeArray: [string, number][] = Object.entries(propsSizeObj);
     let screenSizeCategory: DeviceCategory = deviceScreenSizeCategory();
     let gridValue: number = 0;
-
     if (!propsSizeObj[screenSizeCategory.size]) {
         const filteredProps = propsSizeArray.filter((elem) => elem[1] || elem[0] === screenSizeCategory.size);
         filteredProps.splice(filteredProps.findIndex((e) => e[0] === screenSizeCategory.size), filteredProps.length);
