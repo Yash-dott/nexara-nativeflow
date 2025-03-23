@@ -5,9 +5,9 @@ import { useTheme } from '../../hooks';
 
 type StyledViewProps = ViewStyle & ViewProps & {
     f?: number;
-    justify?: 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly';
-    align?: 'center' | 'flex-end' | 'flex-start' | 'stretch' | 'baseline';
-    fWrap?: 'wrap' | 'nowrap' | 'wrap-reverse';
+    justify?: ViewStyle['justifyContent'];
+    align?: ViewStyle['alignItems'];
+    fWrap?: ViewStyle['flexWrap'];
     bg?: string;
     themeBg?: boolean;
     h?: DimensionValue;
@@ -23,16 +23,14 @@ const StyledView: React.FC<StyledViewProps> = ({
     align,
     fWrap,
     bg,
-    themeBg,
+    themeBg = false,
     h,
     w,
     children,
     style,
-    ...props
+    ...rest
 }) => {
-
-    const theme: any = useTheme();
-
+    const theme = useTheme(themeBg);
     return (<>
         <View
             style={[{
@@ -40,13 +38,13 @@ const StyledView: React.FC<StyledViewProps> = ({
                 justifyContent: justify,
                 alignItems: align,
                 flexWrap: fWrap,
-                backgroundColor: bg ?? (themeBg ? theme.colors.secondary : 'transparent'),
+                backgroundColor: bg ?? (themeBg ? theme?.colors.secondary : 'transparent'),
                 height: h,
                 width: w,
             },
                 style
             ]}
-            {...props}
+            {...rest}
         >
             {children}
         </View>

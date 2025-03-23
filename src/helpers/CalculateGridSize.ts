@@ -1,21 +1,24 @@
-import deviceScreenSizeCategory from './DeviceSizeCategory'
+import deviceScreenSizeCategory from './DeviceSizeCategory';
 
-const getGridValue = (propsSizeObj: Record<string, number>) => {
-    interface DeviceCategory {
-        size: string;
-        value: number;
-    }
+interface DeviceCategory {
+    size: string;
+    value: number;
+}
+
+const getGridValue = (propsSizeObj: Record<string, number>, windowWidth: number | undefined) => {
     const propsSizeArray: [string, number][] = Object.entries(propsSizeObj);
-    let screenSizeCategory: DeviceCategory = deviceScreenSizeCategory();
+    let screenSizeCategory: DeviceCategory = deviceScreenSizeCategory(windowWidth);
     let gridValue: number = 0;
     if (!propsSizeObj[screenSizeCategory.size]) {
-        const filteredProps = propsSizeArray.filter((elem) => elem[1] || elem[0] === screenSizeCategory.size);
-        filteredProps.splice(filteredProps.findIndex((e) => e[0] === screenSizeCategory.size), filteredProps.length);
-        // @ts-ignore
-        gridValue = filteredProps[filteredProps.length - 1][1];
+        const arrIndex = propsSizeArray.findIndex(([size]) => size === screenSizeCategory.size);
+        for (let index = arrIndex - 1; index >= 0; index--) {
+            if (propsSizeArray[index]?.[1]) {
+                gridValue = propsSizeArray[index]?.[1] as number;
+                break;
+            }
+        }
     } else {
-        // @ts-ignore
-        gridValue = propsSizeObj[screenSizeCategory.size];
+        gridValue = propsSizeObj[screenSizeCategory.size] as number;
     }
     return gridValue;
 }

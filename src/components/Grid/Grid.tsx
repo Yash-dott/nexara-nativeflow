@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, StyleSheet } from "react-native";
 import type { ViewStyle, StyleProp } from "react-native";
 import { getGridValue } from '../../helpers';
+import { useConditionalWindowDimension } from '../../hooks';
 
 
 type GridProps = ViewStyle & {
@@ -43,14 +44,16 @@ const Grid: React.FC<GridProps> = ({
     lg = Math.min(lg, 12);
     xl = Math.min(xl, 12);
 
-    const calculatedGridValue: number = getGridValue({
+    const { width: windowWidth } = useConditionalWindowDimension(item);
+
+    const calculatedGridValue: number = item ? useMemo(() => getGridValue({
         xs,
         sm,
         md,
         lg,
         xl,
-    });
-    // console.log((calculatedGridValue / size) * 100)
+    }, windowWidth), [windowWidth, xs, sm, md, lg, xl]) : 12;
+
     const STYLES = StyleSheet.create({
         MAIN_CONT: {
             width: item ? `${((calculatedGridValue / size) * 100)}%` : "100%",
@@ -59,10 +62,9 @@ const Grid: React.FC<GridProps> = ({
             paddingHorizontal: spacingH,
             paddingVertical: spacingV,
             gap: spacing,
-            alignItems: 'center'
-        }
+            // flexShrink:1
+        },
     });
-
     return (<>
         <View
             style={[STYLES.MAIN_CONT, containerStyle]}

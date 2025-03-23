@@ -15,7 +15,7 @@ type AvatarTextProps = {
 }
 
 const AvatarText: React.FC<AvatarTextProps> = ({
-    size = 60,
+    size = 70,
     fs,
     text = 'YH',
     bg,

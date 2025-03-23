@@ -26,8 +26,6 @@ const MenuItemLabel: React.FC<MenuItemLabelProps> = ({
             color="#000"
             numberOfLines={1}
             flexShrink={1}
-            // style={[style, {fontSize: 14}]}
-            // style={[style, {fontSize: responsiveFontSize(14)}]}
             {...rest}
         >
             {children}

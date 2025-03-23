@@ -1,38 +1,43 @@
-import React from "react";
-import { View } from "react-native";
-import type { ViewStyle, StyleProp } from "react-native";
+import React, { useMemo } from "react";
+import { StyleSheet, View } from "react-native";
+import type { ViewStyle, StyleProp, FlexStyle } from "react-native";
+import { horizontalScale } from "../../helpers/ResponsiveCalculations";
 
 
 type HStackProps = ViewStyle & {
-    children?: React.ReactNode;
-    justify?: 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly';
-    align?: 'center' | 'flex-end' | 'flex-start' | 'stretch' | 'baseline';
-    fWrap?: 'wrap' | 'nowrap' | 'wrap-reverse';
+    justify?: FlexStyle['justifyContent'];
+    align?: FlexStyle['alignItems'];
+    fWrap?: FlexStyle['flexWrap'];
     gap?: number;
     containerStyle?: StyleProp<ViewStyle>;
+    children?: React.ReactNode;
 }
 
 const HStack: React.FC<HStackProps> = ({
-    children,
-    justify = 'flex-start',
+    justify,
     align = 'center',
     fWrap = 'wrap',
     gap = 10,
     containerStyle,
+    children,
     ...rest
 }) => {
+    const calculatedGap: number = useMemo(() => horizontalScale(gap), [gap]);
     const viewProps = {
-        flexDirection: 'row',
-        justifyContent: justify,
-        alignItems: align,
-        flexWrap: fWrap,
-        gap,
+        gap: calculatedGap,
     };
+    const STYLES = StyleSheet.create({
+        HSTACK: {
+            flexDirection: 'row',
+            justifyContent: justify,
+            alignItems: align,
+            flexWrap: fWrap,
+        }
+    });
 
     return (<>
         <View
-            {...viewProps}
-            style={[containerStyle, { flexDirection: 'row' }]}
+            style={[viewProps, STYLES.HSTACK, containerStyle]}
             {...rest}
         >
             {children}

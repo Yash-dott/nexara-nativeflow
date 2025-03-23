@@ -1,5 +1,4 @@
-
-import type { ThemeTypes } from '../../themes';
+import type { ThemeTypes } from "../../types";
 
 export type ButtonVariant = 'outlined' | 'contained';
 
@@ -33,6 +32,7 @@ const getButtonTextColor = ({
     titleColor: string | undefined;
     disabled: boolean;
 }) => {
+
     if (disabled) {
         return theme.colors.textDisable;
     }
@@ -56,6 +56,7 @@ const getButtonBackgroundColor = ({
     bg: string | undefined;
     disabled: boolean;
 }) => {
+
     if (disabled) {
         return theme.colors.disable;
     }
@@ -74,13 +75,17 @@ const getButtonBackgroundColor = ({
 
 const getButtonIconColor = ({
     theme,
-    disabled
+    checkVariant,
+    disabled,
 }: {
     theme: ThemeTypes;
+    checkVariant: (variant: ButtonVariant) => boolean;
     disabled: boolean;
 }) => {
     if (disabled) {
         return theme.colors.iconDisable;
+    } else if (checkVariant('outlined')) {
+        return theme.colors.iconPrimary
     }
     return theme.colors.iconSecondary;
 };
@@ -122,6 +127,7 @@ const getButtonColors = ({
         disabled
     });
     const buttonIconColor = getButtonIconColor({
+        checkVariant,
         theme,
         disabled
     });

@@ -190,6 +190,7 @@
     "version": "0.48.3"
   },
   "dependencies": {
+    "color": "^5.0.0",
     "lucide-react-native": "^0.479.0"
   }
 }

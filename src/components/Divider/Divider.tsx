@@ -18,12 +18,12 @@ const Divider: React.FC<DividerProps> = ({
     style
 }) => {
 
-    const {colors} = useTheme();
+    const theme = useTheme();
 
     const STYLES = StyleSheet.create({
         CONTAINER: {
             borderWidth: thickness,
-            borderColor: color ?? colors.dividerColor
+            borderColor: color ?? theme?.colors.dividerColor
         }
     });
 

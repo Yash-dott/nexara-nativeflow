@@ -41,7 +41,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
     text,
     fs,
     textVariant = 'h5',
-    size = 18,
+    size = 20,
     iconSize,
     containerStyle,
     textStyle,

@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View } from "react-native";
-import type { ViewStyle, StyleProp } from "react-native";
+import type { ViewStyle, StyleProp, FlexStyle } from "react-native";
+import { horizontalScale } from "../../helpers/ResponsiveCalculations";
 
 
 type VStackProps = ViewStyle & {
     children?: React.ReactNode;
-    align?: 'center' | 'flex-end' | 'flex-start' | 'stretch' | 'baseline';
+    align?: FlexStyle['alignItems'];
     gap?: number;
     containerStyle?: StyleProp<ViewStyle>;
 }
@@ -18,11 +19,11 @@ const VStack: React.FC<VStackProps> = ({
     ...rest
 }) => {
 
+    const calculatedGap: number = useMemo(() => horizontalScale(gap), [gap]);
     const viewProps = {
         flexDirection: 'column',
         alignItems: align,
-        gap,
-
+        gap: calculatedGap,
     };
     return (<>
         <View

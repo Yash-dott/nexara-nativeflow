@@ -1,5 +1,5 @@
+import type { ThemeTypes } from "../../types";
 
-import type { ThemeTypes } from '../../themes';
 
 export type ChipVariant = 'outlined' | 'contained';
 

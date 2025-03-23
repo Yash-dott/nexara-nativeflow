@@ -1,5 +1,5 @@
 import { dialogSizes, typographySizes } from "../constants";
-import type { ThemeTypes } from "./ThemeTypes";
+import type { ThemeTypes } from "../types";
 
 
 const DarkTheme: ThemeTypes = {
@@ -7,7 +7,6 @@ const DarkTheme: ThemeTypes = {
     colors: {
         primary: '#ffffff',
         secondary: '#000000',
-        // tertiary: '#8080805e',
         disable: '#8080805e',
         outline: '#8080805e',
         textPrimary: '#ffffff',
@@ -30,7 +29,6 @@ const DarkTheme: ThemeTypes = {
     typography: {
         variantSizes: typographySizes
     },
-    // screenBreakpoints: BreakPoints,
     dialogSizes,
 }
 

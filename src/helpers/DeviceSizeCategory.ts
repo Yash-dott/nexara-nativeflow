@@ -2,20 +2,21 @@ import { Dimensions } from "react-native";
 import { BreakPoints } from "../constants";
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
+interface DeviceCategory {
+    size: string;
+    value: number;
+}
 
-
-const deviceScreenSizeCategory = () => {
-    const BreakPointsArray: [string, number][] = Object.entries(BreakPoints);
-    // @ts-ignore
-    let size = { size: BreakPointsArray[BreakPointsArray.length - 1][0], value: BreakPointsArray[BreakPointsArray.length - 1][1] }
-    BreakPointsArray.some(([key, value], i) => {
-        // @ts-ignore
-        if (Math.floor(SCREEN_WIDTH) >= value && Math.floor(SCREEN_WIDTH) < BreakPointsArray[i + 1]?.[1] || i === BreakPointsArray.length - 1) {
-            size = { size: key, value };
-            return true;
-        }
-        return false;
-    });
-    return size;
+const deviceScreenSizeCategory = (windowWidth: number = SCREEN_WIDTH): DeviceCategory => {
+    if (windowWidth >= BreakPoints.xl) {
+        return { size: 'xl', value: BreakPoints.xl };
+    } else if (windowWidth >= BreakPoints.lg) {
+        return { size: 'lg', value: BreakPoints.xl };
+    } else if (windowWidth >= BreakPoints.md) {
+        return { size: 'md', value: BreakPoints.md };
+    } else if (windowWidth >= BreakPoints.sm) {
+        return { size: 'sm', value: BreakPoints.sm };
+    }
+    return { size: 'xs', value: BreakPoints.xs };
 }
 export default deviceScreenSizeCategory;

@@ -23,6 +23,7 @@ export { default as PortalProvider } from './components/Portal/PortalProvider';
 
 export { default as LightTheme } from './themes/LightTheme';
 export { default as DarkTheme } from './themes/DarkTheme';
+// export { default as createTheme } from './themes/createTheme';
 export { useColorScheme, useTheme } from './hooks';
 
 

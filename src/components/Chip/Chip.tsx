@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Pressable, TouchableOpacity } from 'react-native';
 import type { StyleProp, ViewStyle, TextStyle, PressableProps } from "react-native";
 import { StyledText, StyledView } from '../StyledComponents';
-import { horizontalScale, moderateScale, verticalScale } from "../../helpers/ResponsiveCalculations";
+import { horizontalScale, verticalScale } from "../../helpers/ResponsiveCalculations";
 import { useTheme } from '../../hooks';
 import { getChipColors } from './utils';
 import type { ChipVariant } from "./utils";
@@ -47,7 +47,7 @@ const Chip: React.FC<ChipProps> = ({
 
     const theme: any = useTheme();
 
-    const { backgroundColor, buttonTextColor, buttonBorderColor } = getChipColors({
+    const { buttonTextColor, buttonBorderColor } = getChipColors({
         theme,
         variant,
         bg,
@@ -64,10 +64,12 @@ const Chip: React.FC<ChipProps> = ({
             alignItems: 'center',
             borderWidth: stroke,
             borderColor: buttonBorderColor,
-            backgroundColor: backgroundColor,
-            borderRadius: moderateScale(type === 'round' ? 20 : 7),
-            paddingVertical: verticalScale(8),
-            paddingHorizontal: horizontalScale(12),
+            // backgroundColor: backgroundColor,
+            backgroundColor: '#F9FAFB',
+            // borderRadius: moderateScale(type === 'round' ? 20 : 7),
+            borderRadius: verticalScale(7),
+            paddingVertical: verticalScale(9),
+            paddingHorizontal: horizontalScale(16),
             gap: horizontalScale(6)
         },
         TEXT: {
@@ -92,7 +94,7 @@ const Chip: React.FC<ChipProps> = ({
                             {renderLeftIcon}
                         </TouchableOpacity>
                     }
-                    <StyledText primary tas variant='h7' fs={fs} style={[STYLES.TEXT, textStyle]}>{title}</StyledText>
+                    <StyledText primary variant='h5' fs={fs} style={[STYLES.TEXT, textStyle]}>{title}</StyledText>
                     {
                         renderRightIcon &&
                         <TouchableOpacity

@@ -16,7 +16,7 @@ type AvatarImageProps = {
 }
 
 const AvatarImage: React.FC<AvatarImageProps> = ({
-    size = 60,
+    size = 70,
     source,
     bg,
     resizeMode = 'cover',

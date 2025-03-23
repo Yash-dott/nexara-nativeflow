@@ -7,7 +7,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-na
 import Portal from "../Portal/Portal";
 import { positionCalculations } from "./calculations";
 import type { menuLayoutTypes, anchorLayoutTypes } from "./calculations";
-import { horizontalScale } from "../../helpers/ResponsiveCalculations";
+import { horizontalScale, verticalScale } from "../../helpers/ResponsiveCalculations";
 
 type MenuProps = {
     placement?: 'top' | 'bottom';
@@ -75,7 +75,7 @@ const Menu: React.FC<MenuProps> = ({
     }
 
     const renderChildren = (useCallback(() => {
-        return (<ScrollView >
+        return (<ScrollView>
             {React.Children?.toArray(children).map((e) => {
                 return React.cloneElement(e as React.ReactElement, {
                     onPress: () => {
@@ -94,7 +94,7 @@ const Menu: React.FC<MenuProps> = ({
 
     const STYLES = StyleSheet.create({
         CONTAINER: {
-            width: horizontalScale(130),
+            // width: horizontalScale(130),
             shadowColor: "#000",
             backgroundColor: '#fff',
             shadowOffset: {
@@ -109,6 +109,8 @@ const Menu: React.FC<MenuProps> = ({
             top: positions.top,
             borderRadius: 5,
             maxHeight: 400,
+            minWidth: horizontalScale(150),
+            paddingVertical: verticalScale(5)
         }
     });
 
