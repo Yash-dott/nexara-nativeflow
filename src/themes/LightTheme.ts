@@ -56,29 +56,33 @@ import type { ThemeTypes } from "../types";
 //     switchColor: '#353935',
 //     error: '#ED2939',
 // })
-
+console.log(Color('rgba(0, 0, 0, 1)').alpha(0.12).rgb().string())
 const LightTheme: ThemeTypes = {
     isDark: false,
     colors: {
         primary: '#000000',
         secondary: '#ffffff',
         // tertiary: '#8080805e',
-        outline: '#8080805e',
+        // outline: '#8080805e',
+        outline: '#cbd5e1',
         // disable: '#E0E0E0',
-        disable: Color('rgba(0, 0, 0, 1)').alpha(0.12).rgb().string(),
+        disable: 'rgba(100, 100, 100, 0.15)',
 
         textPrimary: '#000000',
         textSecondary: '#ffffff',
-        textTertiary: 'gray',
+        textTertiary: '#808080',
         textDisable: '#9E9E9E',
         cursorColor: '#000000',
-        placeholderColor: '#808080',
+        // placeholderColor: '#808080',
+        placeholderColor: '#cbd5e1',
 
         iconPrimary: '#000000',
         iconSecondary: '#E0E0E0',
         iconDisable: '#9E9E9E',
 
         dividerColor: "#DCDBDB",
+
+        inputBgColor: '#f9fbfd',
 
         switchColor: '#353935',
         error: '#ED2939',

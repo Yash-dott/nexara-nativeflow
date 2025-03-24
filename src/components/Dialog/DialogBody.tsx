@@ -1,18 +1,14 @@
 import React from 'react';
-import type { ReactNode } from "react";
-import { View, StyleSheet, ScrollView, } from 'react-native';
-import type { StyleProp, ViewStyle } from "react-native";
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { moderateScale } from '../../helpers/ResponsiveCalculations';
+import type { DialogBodyProps } from '../../types';
 
 
-type DialogBodyProps = {
+interface props extends DialogBodyProps {
     variant?: 'classic' | 'default';
-    scrollEnable?: boolean;
-    containerStyle?: StyleProp<ViewStyle>;
-    children?: ReactNode
 }
 
-const DialogBody: React.FC<DialogBodyProps> = ({
+const DialogBody: React.FC<props> = ({
     variant,
     scrollEnable = true,
     containerStyle,

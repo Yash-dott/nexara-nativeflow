@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet } from "react-native";
+import React, { useEffect, useRef } from 'react';
+import { Animated, StyleSheet } from "react-native";
 import { moderateScale, verticalScale, } from "../../helpers/ResponsiveCalculations";
 import { StyledView } from '../StyledComponents';
 
@@ -14,9 +14,19 @@ type ProgressProps = {
 const Progress: React.FC<ProgressProps> = ({
     value = 50,
     size = 5,
-    trackColor = '#645E64',
-    progressColor = '#fff',
+    trackColor = '#E8E8E8',
+    progressColor = 'green',
 }) => {
+
+    const animatedWidth = useRef(new Animated.Value(value)).current;
+
+    useEffect(() => {
+        Animated.timing(animatedWidth, {
+            toValue: value,
+            duration: 1000,
+            useNativeDriver: false,
+        }).start();
+    }, [value]);
 
     const STYLES = StyleSheet.create({
         TRACK: {
@@ -27,15 +37,20 @@ const Progress: React.FC<ProgressProps> = ({
         TRACK_ITEM: {
             backgroundColor: progressColor,
             height: verticalScale(size),
-            width: `${value}%`,
             borderRadius: moderateScale(100)
         }
 
     });
+
     return (<>
 
         <StyledView f={1} style={STYLES.TRACK}>
-            <StyledView style={STYLES.TRACK_ITEM} />
+            <Animated.View style={[STYLES.TRACK_ITEM, {
+                width: animatedWidth.interpolate({
+                    inputRange: [0, 100],
+                    outputRange: ['0%', '100%'],
+                })
+            }]} />
         </StyledView>
     </>);
 };

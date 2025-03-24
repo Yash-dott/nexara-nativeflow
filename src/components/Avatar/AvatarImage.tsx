@@ -1,19 +1,10 @@
 import React from "react";
 import { Image } from "react-native";
-import type { ImageProps, ImageStyle, StyleProp, ViewStyle } from "react-native";
 import { StyledView } from "../StyledComponents";
 import { verticalScale } from "../../helpers/ResponsiveCalculations";
 import { useTheme } from "../../hooks";
+import type { AvatarImageProps } from "../../types";
 
-
-type AvatarImageProps = {
-    size?: number;
-    source?: { uri?: string } | number;
-    bg?: string;
-    resizeMode?: NonNullable<ImageProps['resizeMode']>;
-    containerStyle?: StyleProp<ViewStyle>;
-    imageStyle?: StyleProp<ImageStyle>;
-}
 
 const AvatarImage: React.FC<AvatarImageProps> = ({
     size = 70,

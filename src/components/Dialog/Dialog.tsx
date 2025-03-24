@@ -1,23 +1,10 @@
 import React, { cloneElement, useEffect } from 'react';
-import type { ReactElement, ReactNode, } from "react";
+import type { ReactElement } from "react";
 import { Keyboard, BackHandler } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
 import { dialogSizes } from '../../constants';
 import Portal from '../Portal/Portal';
-// import { useTheme } from '../../hooks';
-
-
-
-type DialogProps = {
-    variant?: 'classic' | 'default';
-    isVisible?: boolean;
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'full';
-    fullScreen?: boolean;
-    backdropColor?: string;
-    animationDuration?: number;
-    onClose?: () => void;
-    children?: ReactNode;
-}
+import type { DialogProps } from '../../types';
 
 const Dialog: React.FC<DialogProps> = ({
     variant = 'default',

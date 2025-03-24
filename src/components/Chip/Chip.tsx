@@ -1,30 +1,10 @@
 import React from 'react';
 import { StyleSheet, Pressable, TouchableOpacity } from 'react-native';
-import type { StyleProp, ViewStyle, TextStyle, PressableProps } from "react-native";
 import { StyledText, StyledView } from '../StyledComponents';
 import { horizontalScale, verticalScale } from "../../helpers/ResponsiveCalculations";
 import { useTheme } from '../../hooks';
 import { getChipColors } from './utils';
-import type { ChipVariant } from "./utils";
-
-
-type ChipProps = PressableProps & {
-    variant?: ChipVariant;
-    type?: 'round' | 'flat';
-    title?: string;
-    bg?: string;
-    titleColor?: string;
-    fs?: number;
-    stroke?: number;
-    color?: string;
-    rippleColor?: string;
-    disabled?: boolean;
-    strokeColor?: string;
-    renderLeftIcon?: JSX.Element;
-    renderRightIcon?: JSX.Element;
-    containerStyle?: StyleProp<ViewStyle>;
-    textStyle?: StyleProp<TextStyle>;
-}
+import type { ChipProps } from '../../types';
 
 const Chip: React.FC<ChipProps> = ({
     variant = 'contained',

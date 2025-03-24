@@ -1,20 +1,9 @@
 import React from "react";
 import { Switch as NativeSwitch } from "react-native";
-import type { SwitchProps as NativeSwitchProps } from "react-native";
 import LightenColorShades from "../../helpers/LightenColorShades";
 import { moderateScale } from "../../helpers/ResponsiveCalculations";
 import { useTheme } from "../../hooks";
-
-
-type SwitchProps = NativeSwitchProps & {
-    checked?: boolean;
-    color?: string;
-    disabled?: boolean;
-    size?: number;
-    activeTrackColor?: string;
-    inactiveTrackColor?: string;
-    onChange?: (newValue: boolean) => void;
-}
+import type { SwitchProps } from "../../types";
 
 const Switch: React.FC<SwitchProps> = ({
     checked = true,

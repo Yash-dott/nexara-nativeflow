@@ -1,144 +1,106 @@
-import React from 'react';
-import { TextInput, StyleSheet, View, Text } from 'react-native';
-import type { TextInputProps, ViewStyle, TextStyle, StyleProp } from "react-native";
+import React, { useMemo } from 'react';
+import { TextInput, StyleSheet } from 'react-native';
 import { responsiveFontSize, verticalScale, horizontalScale } from '../../helpers/ResponsiveCalculations';
 import { useTheme } from '../../hooks';
-import { StyledView } from '../StyledComponents';
-
-
-type UserInputProps = TextInputProps & {
-    variant?: 'outlined' | 'standard';
-    label?: string;
-    bg?: string;
-    br?: number;
-    stroke?: number;
-    labelColor?: string;
-    textColor?: string;
-    strokeColor?: string;
-    cursorColor?: string;
-    placeholderTextColor?: string;
-    fs?: number;
-    labelFs?: number;
-    placeholder?: string;
-    isError?: boolean;
-    helperText?: string;
-    disabled?: boolean;
-    multiline?: boolean;
-    renderLeftIcon?: JSX.Element;
-    renderRightIcon?: JSX.Element;
-    inputContStyle?: StyleProp<ViewStyle>;
-    inputStyle?: StyleProp<TextStyle>;
-    containerStyle?: StyleProp<ViewStyle>;
-    labelStyle?: StyleProp<TextStyle>;
-}
-
+import { StyledText, StyledView } from '../StyledComponents';
+import type { UserInputProps } from '../../types';
+import generateColors from './generateColors';
 
 const UserInput: React.FC<UserInputProps> = ({
     variant = 'standard',
     label,
-    bg = 'transparent',
-    br = 5,
+    bg,
+    br = 10,
     stroke = 1,
     labelColor,
-    textColor,
+    textVariant = {
+        label: 'h5',
+        helperText: 'h6',
+    },
+    inputTextColor,
+    // strokeColor = '#cbd5e1',
     strokeColor,
     cursorColor,
-    placeholderTextColor,
-    fs = 12,
-    labelFs = 12,
-    placeholder = 'Enter Your...',
+    placeholderColor,
+    inputFs = 13,
+    labelFs,
+    helperTextFS,
+    placeholder = 'Please enter...',
     disabled = false,
-    isError,
+    isError = false,
     helperText = '',
     multiline = false,
     renderLeftIcon,
     renderRightIcon,
-    inputContStyle,
-    inputStyle,
-    containerStyle,
-    labelStyle,
+    styles,
     ...props
 }) => {
 
     const theme: any = useTheme();
 
-    const cursor = isError ? theme.colors.error : cursorColor ?? theme.colors.cursorColor;
-    const placeholderColor = placeholderTextColor ?? theme.colors.placeholderColor;
-
+    const {
+        computedCursorColor,
+        computedPlaceholderColor,
+        computedLabelColor
+    } = useMemo(() => generateColors(theme, isError, cursorColor, placeholderColor, labelColor), [theme, isError, cursorColor, placeholderColor, labelColor]);
 
     const STYLES = StyleSheet.create({
-        INPUT: {
-            color: disabled ? theme.colors.textDisable : isError ? theme.colors.error : textColor ?? theme.colors.textPrimary,
-            fontSize: responsiveFontSize(fs),
-            textAlignVertical: multiline ? 'top' : 'center',
-            padding: 0
-        },
-        LABEL: {
-            color: isError ? theme.colors.error : labelColor ?? theme.colors.textTertiary,
-            fontSize: responsiveFontSize(labelFs),
-            fontWeight: 'bold'
-        },
         INPUT_CONT: {
             flexDirection: 'row',
             alignItems: multiline ? 'flex-start' : 'center',
+            backgroundColor: disabled ? theme.colors.disable : bg ?? theme.colors.inputBgColor,
             borderColor: isError ? theme.colors.error : strokeColor ?? theme.colors.outline,
-            // height: multiline ? 'auto' : verticalScale(42),
-            // paddingVertical: verticalScale(6),
-            height: multiline ? 'auto' : verticalScale(38),
-            // paddingVertical: multiline ? 'auto' : verticalScale(7),
-            backgroundColor: disabled ? theme.colors.disable : bg ?? 'transparent',
             borderWidth: variant === 'standard' ? 0 : stroke,
             borderBottomWidth: stroke,
-            paddingHorizontal: horizontalScale(15),
-            // paddingVertical: multiline ? verticalScale(10) : 0,
+            paddingHorizontal: horizontalScale(14),
             borderRadius: verticalScale(br),
-            gap: horizontalScale(15),
+            gap: horizontalScale(10),
+            height: multiline ? 'auto' : verticalScale(48),
+            paddingVertical: multiline ? horizontalScale(10) : 'auto',
+        },
+        INPUT: {
+            color: disabled ? theme.colors.textDisable : isError ? theme.colors.error : inputTextColor ?? theme.colors.textPrimary,
+            fontSize: responsiveFontSize(inputFs),
+            textAlignVertical: multiline ? 'top' : 'center',
+            minHeight: multiline ? 100 : 'auto',
+            maxHeight: multiline ? 150 : 'auto',
+            padding: 0,
+            flex: 1,
         },
         ERROR_HELPER_TEXT: {
             color: theme.colors.error,
-            fontSize: responsiveFontSize(10),
             paddingHorizontal: 5
         }
     });
 
     return (<>
-        <StyledView gap={verticalScale(4)} style={containerStyle}>
+        <StyledView gap={verticalScale(5)} style={styles?.mainContainer}>
             {
                 label &&
-                <View>
-                    <Text style={[STYLES.LABEL, labelStyle]}>{label}</Text>
-                </View>
+                <StyledText variant={textVariant?.label} fs={labelFs} color={computedLabelColor} style={styles?.label}>{label}</StyledText>
             }
-            <View
-                style={[STYLES.INPUT_CONT, inputContStyle]}
+            <StyledView
+                style={[STYLES.INPUT_CONT, styles?.inputContainer]}
             >
                 {
                     renderLeftIcon
-                    // renderLeftIcon && React.cloneElement(renderLeftIcon, { color: '#000', size: moderateScale(iconSize), ...renderLeftIcon?.props })
                 }
-                <View
-                    style={{ flex: 1, alignSelf: 'center' }}
-                >
-                    <TextInput
-                        style={[STYLES.INPUT, inputStyle]}
-                        placeholder={placeholder}
-                        placeholderTextColor={placeholderColor}
-                        editable={!disabled}
-                        multiline={multiline}
-                        cursorColor={cursor}
-                        {...props}
-                    />
-                </View>
+                <TextInput
+                    style={[STYLES.INPUT, styles?.input]}
+                    placeholder={placeholder}
+                    placeholderTextColor={computedPlaceholderColor}
+                    editable={!disabled}
+                    multiline={multiline}
+                    cursorColor={computedCursorColor}
+                    {...props}
+                />
                 {
                     renderRightIcon
-                    // renderRightIcon && React.cloneElement(renderRightIcon, { color: '#000', size: moderateScale(iconSize), ...renderRightIcon?.props })
                 }
-            </View>
+            </StyledView>
             {
                 (isError && helperText) &&
-                <View>
-                    <Text style={STYLES.ERROR_HELPER_TEXT}>{helperText}</Text>
-                </View>
+                <StyledText variant={textVariant?.helperText} fs={helperTextFS} style={[STYLES.ERROR_HELPER_TEXT, styles?.helperText]}>{helperText}</StyledText>
             }
         </StyledView>
     </>)
@@ -146,3 +108,17 @@ const UserInput: React.FC<UserInputProps> = ({
 export default UserInput;
 export type { UserInputProps };
 
+// const STYLES = StyleSheet.create({
+//     INPUT_CONT: {
+//         flexDirection: 'row',
+//         paddingHorizontal: horizontalScale(14),
+//         gap: horizontalScale(10),
+//     },
+//     INPUT: {
+//         padding: 0,
+//         flex: 1,
+//     },
+//     ERROR_HELPER_TEXT: {
+//         paddingHorizontal: 5
+//     }
+// });

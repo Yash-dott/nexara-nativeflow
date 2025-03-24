@@ -1,24 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import { moderateScale } from '../../helpers/ResponsiveCalculations';
 import { X } from '../../assets/svg';
 import { StyledText } from '../StyledComponents';
-import type { TypographyVariant } from '../../types/styledTextTypes';
-// import { useTheme } from '../../hooks';
+import type { DialogHeadProps } from '../../types';
 
 
-type DialogHeadProps = {
+interface props extends DialogHeadProps {
     variant?: 'classic' | 'default';
-    title?: string;
-    textVariant?: TypographyVariant;
-    fs?: number;
-    containerStyle?: StyleProp<ViewStyle>;
-    textStyle?: StyleProp<TextStyle>;
-    children?: React.ReactNode;
 }
 
-const DialogHead: React.FC<DialogHeadProps> = ({
+const DialogHead: React.FC<props> = ({
     variant = 'default',
     title = 'Title',
     textVariant = 'h4',
@@ -27,10 +19,6 @@ const DialogHead: React.FC<DialogHeadProps> = ({
     textStyle,
     children
 }) => {
-    // const { colors, typography: { variantSizes } }: any = useTheme();
-
-    // console.log(responsiveFontSize(variantSizes.h4))
-
     const STYLES = StyleSheet.create({
         CONTAINER: {
             borderBottomWidth: variant == 'default' ? 0.7 : 0,

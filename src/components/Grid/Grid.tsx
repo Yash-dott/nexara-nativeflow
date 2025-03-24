@@ -1,25 +1,8 @@
 import React, { useMemo } from 'react';
 import { View, StyleSheet } from "react-native";
-import type { ViewStyle, StyleProp } from "react-native";
 import { getGridValue } from '../../helpers';
 import { useConditionalWindowDimension } from '../../hooks';
-
-
-type GridProps = ViewStyle & {
-    container?: boolean;
-    item?: boolean;
-    spacing?: number;
-    spacingH?: number;
-    spacingV?: number;
-    size?: number;
-    xs?: number;
-    sm?: number;
-    md?: number;
-    lg?: number;
-    xl?: number;
-    containerStyle?: StyleProp<ViewStyle>
-    children?: React.ReactNode;
-}
+import type { GridProps } from '../../types';
 
 const Grid: React.FC<GridProps> = ({
     container = false,

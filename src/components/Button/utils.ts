@@ -1,6 +1,5 @@
-import type { ThemeTypes } from "../../types";
+import type { ButtonVariant, ThemeTypes } from "../../types";
 
-export type ButtonVariant = 'outlined' | 'contained';
 
 const getButtonBorderColor = ({
     theme,

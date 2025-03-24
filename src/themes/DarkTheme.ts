@@ -7,11 +7,13 @@ const DarkTheme: ThemeTypes = {
     colors: {
         primary: '#ffffff',
         secondary: '#000000',
-        disable: '#8080805e',
-        outline: '#8080805e',
+        disable: 'rgba(180, 180, 180, 0.20)',
+        // outline: '#8080805e',
+        outline: '#9090905e',
         textPrimary: '#ffffff',
         textSecondary: '#000000',
-        textTertiary: 'gray',
+        // textTertiary: 'gray',
+        textTertiary: '#A0A0A0',
         textDisable: '#808080',
         cursorColor: '#ffffff',
         placeholderColor: '#808080',
@@ -21,7 +23,8 @@ const DarkTheme: ThemeTypes = {
         iconSecondary: '#000000',
         iconDisable: '#808080',
 
-        dividerColor: "#DCDBDB",
+        dividerColor: "#3A3A3A",
+        inputBgColor: 'transparent',
 
         switchColor: '#ffffff',
         error: '#ED2939'

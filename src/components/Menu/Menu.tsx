@@ -1,25 +1,12 @@
 import React, { useState, useRef, useCallback, useEffect, } from "react";
-import type { ReactNode } from "react";
 import { StyleSheet, Pressable, View, ScrollView } from "react-native";
-import type { StyleProp, ViewStyle } from "react-native";
 import { StyledView } from "../StyledComponents";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import Portal from "../Portal/Portal";
 import { positionCalculations } from "./calculations";
 import type { menuLayoutTypes, anchorLayoutTypes } from "./calculations";
 import { horizontalScale, verticalScale } from "../../helpers/ResponsiveCalculations";
-
-type MenuProps = {
-    placement?: 'top' | 'bottom';
-    anchor?: JSX.Element;
-    disableBuiltInState?: boolean;
-    isOpen?: boolean;
-    onRequestOpen?: () => void;
-    onRequestClose?: () => void;
-    onSelect?: (name: string | undefined) => void;
-    style?: StyleProp<ViewStyle>;
-    children?: ReactNode;
-}
+import type { MenuProps } from "../../types";
 
 const Menu: React.FC<MenuProps> = ({
     placement = 'top',
@@ -140,7 +127,7 @@ const Menu: React.FC<MenuProps> = ({
             </Pressable>
         </Portal>
 
-        <StyledView  alignItems='flex-start'>
+        <StyledView alignItems='flex-start'>
             <View ref={buttonRef} onLayout={measureLayout}>
                 {anchor && React.cloneElement(anchor, { onPress: onOpen })}
             </View>

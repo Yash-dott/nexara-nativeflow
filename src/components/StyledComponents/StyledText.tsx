@@ -1,25 +1,8 @@
 import React from 'react';
 import { Text } from 'react-native';
-import type { TextProps, TextStyle, ColorValue, StyleProp } from "react-native";
 import { responsiveFontSize } from '../../helpers/ResponsiveCalculations';
 import { useTheme } from '../../hooks';
-// import { typographySizes } from '../../constants';
-import type { FontWeight, TypographyVariant } from '../../types/styledTextTypes';
-
-
-type StyledTextProps = TextProps & {
-    variant?: TypographyVariant;
-    children?: React.ReactNode;
-    style?: StyleProp<TextStyle>;
-    ff?: string;
-    fs?: number;
-    fw?: FontWeight;
-    tas?: boolean;
-    color?: ColorValue;
-    themeColor?: boolean;
-    primary?: boolean;
-    secondary?: boolean;
-}
+import type { StyledTextProps } from '../../types';
 
 const StyledText: React.FC<StyledTextProps> = ({
     variant = 'h5',
@@ -37,7 +20,7 @@ const StyledText: React.FC<StyledTextProps> = ({
 }) => {
 
     const { colors, typography: { variantSizes } }: any = useTheme();
-
+    
     return (<>
         <Text
             allowFontScaling={false}

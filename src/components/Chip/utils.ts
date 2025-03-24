@@ -1,7 +1,4 @@
-import type { ThemeTypes } from "../../types";
-
-
-export type ChipVariant = 'outlined' | 'contained';
+import type { ChipVariant, ThemeTypes } from "../../types";
 
 const getBorderColor = ({
     theme,

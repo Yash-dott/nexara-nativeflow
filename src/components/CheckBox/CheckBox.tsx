@@ -1,33 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback } from "react-native";
-import type { ViewStyle, TextStyle, StyleProp } from "react-native";
 import { StyledText, StyledView } from "../StyledComponents";
 import Animated, { useAnimatedStyle, useSharedValue, withSpring } from "react-native-reanimated";
 import { useTheme } from "../../hooks";
 import { horizontalScale, verticalScale } from "../../helpers/ResponsiveCalculations";
 import { Check } from "../../assets/svg";
-import type { TypographyVariant } from "../../types/styledTextTypes";
+import type { CheckBoxProps } from "../../types";
 
-
-type CheckBoxProps = {
-    variant?: 'square' | 'round',
-    isChecked?: boolean,
-    defaultValue?: boolean,
-    activeBgColor?: string,
-    inActiveBgColor?: string,
-    iconColor?: string,
-    disableBuiltInState?: boolean,
-    disabled?: boolean,
-    text?: string,
-    fs?: number,
-    textVariant?: TypographyVariant,
-    size?: number,
-    iconSize?: number,
-    containerStyle?: StyleProp<ViewStyle>,
-    checkBoxStyle?: StyleProp<ViewStyle>,
-    textStyle?: StyleProp<TextStyle>,
-    onPress?: (e: boolean) => void,
-}
 
 const CheckBox: React.FC<CheckBoxProps> = ({
     variant = 'square',
@@ -40,7 +19,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
     disabled = false,
     text,
     fs,
-    textVariant = 'h5',
+    textVariant = 'h6',
     size = 20,
     iconSize,
     containerStyle,

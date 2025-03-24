@@ -1,18 +1,9 @@
 import React from "react";
-import type { ViewStyle, TextStyle, StyleProp } from "react-native";
 import { StyledText, StyledView } from "../StyledComponents";
 import { verticalScale } from "../../helpers/ResponsiveCalculations";
 import { useTheme } from "../../hooks";
+import type { AvatarTextProps } from "../../types";
 
-
-type AvatarTextProps = {
-    size?: number;
-    fs?: number;
-    text?: string;
-    bg?: string;
-    containerStyle?: StyleProp<ViewStyle>;
-    textStyle?: StyleProp<TextStyle>;
-}
 
 const AvatarText: React.FC<AvatarTextProps> = ({
     size = 70,

@@ -30,10 +30,8 @@ const Slider: React.FC<SliderProps> = ({
             width: `${value}%`,
             borderRadius: moderateScale(100)
         }
-
     });
   
-    // Animated style for the slider head
   
     return (<>
             <StyledView f={1} style={STYLES.TRACK}>

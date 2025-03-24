@@ -1,18 +1,8 @@
 import React from "react";
-import type { ReactNode } from "react";
 import { TouchableOpacity } from "react-native";
-import type { TouchableOpacityProps, ViewStyle, StyleProp } from "react-native";
 import { StyledView } from "../StyledComponents";
 import { horizontalScale, moderateScale, verticalScale } from "../../helpers/ResponsiveCalculations";
-
-type MenuItemProps = TouchableOpacityProps & {
-    paddingV?: number;
-    paddingH?: number;
-    gap?: number;
-    name?: string;
-    style?: StyleProp<ViewStyle>;
-    children?: ReactNode;
-}
+import type { MenuItemProps } from "../../types";
 
 const MenuItem: React.FC<MenuItemProps> = ({
     // paddingV = 12,

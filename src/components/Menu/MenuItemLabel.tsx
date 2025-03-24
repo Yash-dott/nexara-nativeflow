@@ -1,15 +1,6 @@
 import React from "react";
-import type { ReactNode } from "react";
-import type { StyleProp, TextStyle } from "react-native";
 import { StyledText } from "../StyledComponents";
-import type { TypographyVariant } from "../../types/styledTextTypes";
-
-type MenuItemLabelProps = TextStyle & {
-    fs?: number;
-    textVariant?: TypographyVariant;
-    style?: StyleProp<TextStyle>;
-    children?: ReactNode;
-}
+import type { MenuItemLabelProps } from "../../types";
 
 const MenuItemLabel: React.FC<MenuItemLabelProps> = ({
     fs,

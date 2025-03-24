@@ -80,12 +80,8 @@ const TouchableRipple: React.FC<TouchableRippleProps> = ({
                         }}
                         style={style}
                     >
-                        {/* <Animated.View ref={aRef} style={{ overflow: 'hidden' }}> */}
-                        {/* <StyledView> */}
-                            {children}
-                        {/* </StyledView> */}
+                        {children}
                         <Animated.View style={[STYLES.OVERLAY, effectAnimatedStyle]} />
-                        {/* </Animated.View> */}
                     </StyledView>
                 </Pressable>
             </GestureDetector>

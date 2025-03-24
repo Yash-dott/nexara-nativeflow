@@ -1,74 +1,76 @@
-// import type { PressableProps } from "react-native";
+import type { PressableProps, StyleProp, TextStyle, ViewStyle } from "react-native";
+import type { ButtonVariant, TypographyVariant } from "./common.type";
 
+/**
+ * @see https://rn-nativeflow-docs.onrender.com/docs/components/button
+ */
+export type ButtonProps = PressableProps & {
+    /** Specifies the button style variant (e.g., 'contained', 'outlined') */
+    variant?: ButtonVariant;
 
+    /** Determines button shape - 'round' or 'flat' */
+    type?: 'round' | 'flat';
 
-// export type ButtonProps = PressableProps & {
-//     /** Specifies the button style variant (e.g., 'contained', 'outlined', 'text') */
-//     variant?: ButtonVariant;
+    /** Whether the button should expand to full width */
+    fullWidth?: boolean;
 
-//     /** Determines button shape - 'round' or 'flat' */
-//     type?: 'round' | 'flat';
+    /** Horizontal padding inside the button */
+    paddingH?: number;
 
-//     /** Whether the button should expand to full width */
-//     fullWidth?: boolean;
+    /** Vertical padding inside the button */
+    paddingV?: number;
 
-//     /** Horizontal padding inside the button */
-//     paddingH?: number;
+    /** Custom background color */
+    bg?: string;
 
-//     /** Vertical padding inside the button */
-//     paddingV?: number;
+    /** Border radius of the button */
+    br?: number;
 
-//     /** Custom background color */
-//     bg?: string;
+    /** Border width (for outlined buttons) */
+    stroke?: number;
 
-//     /** Border radius of the button */
-//     br?: number;
+    /** Border color */
+    strokeColor?: string;
 
-//     /** Border width (for outlined buttons) */
-//     stroke?: number;
+    /** Text color */
+    titleColor?: string;
 
-//     /** Border color */
-//     strokeColor?: string;
+    /** Button text */
+    title?: string;
 
-//     /** Text color */
-//     titleColor?: string;
+    /** Font size of the button text */
+    titleFS?: number;
 
-//     /** Button text */
-//     title?: string;
+    /** Typography variant (h1, h2, h3, etc.) */
+    titleVariant?: TypographyVariant;
 
-//     /** Font size of the button text */
-//     titleFS?: number;
+    /** Font family for the button text */
+    titleFF?: string;
 
-//     /** Typography variant (h1, h2, h3, etc.) */
-//     titleVariant?: TypographyVariant;
+    /** Custom size (for round buttons) */
+    size?: number;
 
-//     /** Font family for the button text */
-//     titleFF?: string;
+    /** Ripple effect color */
+    rippleColor?: string;
 
-//     /** Custom size (for round buttons) */
-//     size?: number;
+    /** Icon element to be displayed inside the button */
+    renderIcon?: JSX.Element;
 
-//     /** Ripple effect color */
-//     rippleColor?: string;
+    /** Left-side icon */
+    renderLeftIcon?: JSX.Element;
 
-//     /** Icon element to be displayed inside the button */
-//     renderIcon?: JSX.Element;
+    /** Right-side icon */
+    renderRightIcon?: JSX.Element;
 
-//     /** Left-side icon */
-//     renderLeftIcon?: JSX.Element;
+    /** Disables the button when `true` */
+    disabled?: boolean;
 
-//     /** Right-side icon */
-//     renderRightIcon?: JSX.Element;
+    /** Custom styles for the button container */
+    buttonContainerStyle?: StyleProp<ViewStyle>;
 
-//     /** Disables the button when `true` */
-//     disabled?: boolean;
+    /** Custom styles for the text */
+    textStyle?: StyleProp<TextStyle>;
 
-//     /** Custom styles for the button container */
-//     buttonContainerStyle?: StyleProp<ViewStyle>;
-
-//     /** Custom styles for the text */
-//     textStyle?: StyleProp<TextStyle>;
-
-//     /** Function to execute when button is pressed */
-//     onPress?: () => void;
-// };
+    /** Function to execute when button is pressed */
+    onPress?: () => void;
+};

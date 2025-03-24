@@ -1,17 +1,7 @@
 import React, { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
-import type { ViewStyle, StyleProp, FlexStyle } from "react-native";
 import { horizontalScale } from "../../helpers/ResponsiveCalculations";
-
-
-type HStackProps = ViewStyle & {
-    justify?: FlexStyle['justifyContent'];
-    align?: FlexStyle['alignItems'];
-    fWrap?: FlexStyle['flexWrap'];
-    gap?: number;
-    containerStyle?: StyleProp<ViewStyle>;
-    children?: React.ReactNode;
-}
+import type { HStackProps } from "../../types";
 
 const HStack: React.FC<HStackProps> = ({
     justify,

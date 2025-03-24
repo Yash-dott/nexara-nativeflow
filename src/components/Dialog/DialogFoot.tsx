@@ -1,18 +1,15 @@
 import React from 'react';
-import type { ReactNode } from "react";
 import { StyleSheet } from 'react-native';
-import type { StyleProp, ViewStyle } from "react-native";
 import Stack from '../Stack';
 import { moderateScale } from '../../helpers/ResponsiveCalculations';
+import type { DialogFootProps } from '../../types';
 
 
-type DialogFootProps = {
+interface props extends DialogFootProps {
     variant?: 'classic' | 'default';
-    containerStyle?: StyleProp<ViewStyle>;
-    children?: ReactNode;
 }
 
-const DialogFoot: React.FC<DialogFootProps> = ({
+const DialogFoot: React.FC<props> = ({
     variant,
     containerStyle,
     children
@@ -24,7 +21,7 @@ const DialogFoot: React.FC<DialogFootProps> = ({
             borderColor: '#d4d4d4',
             padding: moderateScale(variant === 'default' ? 16 : 20),
             paddingHorizontal: moderateScale(variant === 'default' ? 16 : 25),
-            justifyContent:'flex-end',
+            justifyContent: 'flex-end',
             gap: moderateScale(15)
         },
     });

@@ -1,56 +1,25 @@
 import React from 'react';
 import { StyleSheet } from "react-native";
-import type { PressableProps, StyleProp, ViewStyle, TextStyle } from "react-native";
 import { verticalScale, horizontalScale } from "../../helpers/ResponsiveCalculations";
 import { StyledText, StyledView } from '../StyledComponents';
 import { useTheme } from '../../hooks';
 import { getButtonColors } from './utils';
-import type { ButtonVariant } from "./utils";
 import TouchableRipple from '../TouchableRipple/TouchableRipple';
-import type { TypographyVariant } from '../../types/styledTextTypes';
+import type { ButtonProps } from '../../types';
 
-
-type ButtonProps = PressableProps & {
-    variant?: ButtonVariant;
-    type?: 'round' | 'flat'
-    fullWidth?: boolean;
-    paddingH?: number;
-    paddingV?: number;
-    bg?: string;
-    br?: number;
-    stroke?: number;
-    strokeColor?: string;
-    titleColor?: string;
-    title?: string;
-    titleFS?: number;
-    titleVariant?: TypographyVariant;
-    titleFF?: string;
-    size?: number;
-    rippleColor?: string;
-    renderIcon?: JSX.Element;
-    renderLeftIcon?: JSX.Element;
-    renderRightIcon?: JSX.Element;
-    disabled?: boolean;
-    buttonContainerStyle?: StyleProp<ViewStyle>
-    textStyle?: StyleProp<TextStyle>
-    onPress?: () => void
-}
 
 const Button: React.FC<ButtonProps> = ({
     variant = 'contained',
     type = 'flat',
     fullWidth = false,
-    // paddingH = 15,
     paddingH = 19,
-    // paddingV = 11,
-    paddingV = 15,
+    paddingV = 14,
     bg,
     br = 5,
     stroke = 1,
     strokeColor,
     titleColor,
     title = 'Button',
-    // titleFS = 12,
     titleFS,
     titleVariant = 'h5',
     titleFF,
@@ -96,7 +65,6 @@ const Button: React.FC<ButtonProps> = ({
         FLAT_BUTTON_CONT: {
             paddingVertical: verticalScale(paddingV),
             paddingHorizontal: horizontalScale(!fullWidth ? paddingH : 30),
-            // paddingHorizontal: horizontalScale(paddingH),
             borderRadius: verticalScale(br),
             flexDirection: 'row',
             alignItems: 'center',
@@ -125,7 +93,6 @@ const Button: React.FC<ButtonProps> = ({
                         <StyledView style={[STYLES.FLAT_BUTTON_CONT, STYLES.BUTTON_CONT, buttonContainerStyle]}>
                             {(renderLeftIcon || (fullWidth && renderRightIcon)) && (
                                 <StyledView f={fullWidth ? 1 : undefined}>
-                                    {/* {renderLeftIcon} */}
                                     {renderLeftIcon && React.cloneElement(renderLeftIcon, {
                                         color: buttonIconColor
                                     })}
@@ -143,7 +110,6 @@ const Button: React.FC<ButtonProps> = ({
 
                             {(renderRightIcon || (fullWidth && renderLeftIcon)) && (
                                 <StyledView alignItems='flex-end' f={fullWidth ? 1 : undefined}>
-                                    {/* {renderRightIcon} */}
                                     {renderRightIcon && React.cloneElement(renderRightIcon, {
                                         color: buttonIconColor
                                     })}
