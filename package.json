@@ -1,6 +1,6 @@
 {
   "name": "@nexara/nativeflow",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Beautiful, responsive, and customizable UI components for React Native – built for performance and seamless experiences.",
   "source": "./src/index.ts",
   "main": "./lib/commonjs/index.js",
@@ -59,7 +59,7 @@
   "bugs": {
     "url": "https://github.com/Yash-dott/nexara-nativeflow/issues"
   },
-  "homepage": "https://github.com/Yash-dott/nexara-nativeflow#readme",
+  "homepage": "https://nexara-nativeflow-docs.onrender.com",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
