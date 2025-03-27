@@ -61,7 +61,8 @@
   },
   "homepage": "https://github.com/Yash-dott/nexara-nativeflow#readme",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "devDependencies": {
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
