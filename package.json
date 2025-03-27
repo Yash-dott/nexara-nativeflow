@@ -1,7 +1,7 @@
 {
   "name": "@nexara/nativeflow",
   "version": "0.1.0",
-  "description": "ui",
+  "description": "Beautiful, responsive, and customizable UI components for React Native – built for performance and seamless experiences.",
   "source": "./src/index.ts",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",

@@ -1,28 +1,30 @@
-import React, { cloneElement, useEffect } from 'react';
+import React, { cloneElement, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 import type { ReactElement } from "react";
 import { Keyboard, BackHandler } from 'react-native';
 import Animated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
 import { dialogSizes } from '../../constants';
 import Portal from '../Portal/Portal';
-import type { DialogProps } from '../../types';
+import type { DialogProps, DialogRefProps } from '../../types';
 
-const Dialog: React.FC<DialogProps> = ({
+
+const Dialog = forwardRef<DialogRefProps, DialogProps>(({
     variant = 'default',
-    isVisible = false,
+    // isVisible = false,
     size = 'lg',
     fullScreen,
     backdropColor = 'rgba(0, 0, 0, 0.5)',
     animationDuration = 800,
     onClose,
     children,
-}) => {
+}, ref) => {
 
+    const [dialogVisible, setDialogVisible] = useState(false);
     const scale = useSharedValue(0.8);
     const opacity = useSharedValue(0);
 
     useEffect(() => {
-        opacity.value = withTiming(isVisible ? 1 : 0);
-        scale.value = withSpring(isVisible ? 1 : 0.8,
+        opacity.value = withTiming(dialogVisible ? 1 : 0);
+        scale.value = withSpring(dialogVisible ? 1 : 0.8,
             {
                 duration: animationDuration,
                 dampingRatio: 0.6,
@@ -32,17 +34,22 @@ const Dialog: React.FC<DialogProps> = ({
                 restSpeedThreshold: 0.01,
             }
         );
-    }, [isVisible]);
+    }, [dialogVisible]);
 
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', hardwareBackPress)
         return () => BackHandler.removeEventListener('hardwareBackPress', hardwareBackPress);
-    }, [isVisible]);
+    }, [dialogVisible]);
 
     const hardwareBackPress = () => {
-        onClose?.()
-        return isVisible;
+        onClose?.();
+        setDialogVisible(false);
+        return dialogVisible;
     };
+    useImperativeHandle(ref, () => ({
+        open: () => setDialogVisible(true),
+        close: () => setDialogVisible(false)
+    }));
 
     const backdropAnimatedStyle = useAnimatedStyle(() => {
         return {
@@ -84,14 +91,15 @@ const Dialog: React.FC<DialogProps> = ({
     const handleStartShouldSetResponder = (): boolean => {
         Keyboard.dismiss();
         onClose?.();
+        setDialogVisible(false);
         return true;
     };
 
     return (<>
-        <Portal name={`dialog-${Math.random() * 50}`}>
+        <Portal name='dialog'>
             <Animated.View
                 style={backdropAnimatedStyle}
-                pointerEvents={isVisible ? 'auto' : 'none'}
+                pointerEvents={dialogVisible ? 'auto' : 'none'}
                 onStartShouldSetResponder={handleStartShouldSetResponder}
             >
                 <Animated.View
@@ -103,6 +111,6 @@ const Dialog: React.FC<DialogProps> = ({
             </Animated.View>
         </Portal>
     </>);
-}
+});
 export default Dialog;
 export type { DialogProps };

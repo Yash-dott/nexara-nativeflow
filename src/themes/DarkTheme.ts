@@ -25,6 +25,7 @@ const DarkTheme: ThemeTypes = {
 
         dividerColor: "#3A3A3A",
         inputBgColor: 'transparent',
+        chipBgColor: 'transparent',
 
         switchColor: '#ffffff',
         error: '#ED2939'

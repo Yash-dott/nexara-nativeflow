@@ -1,16 +1,20 @@
-import { NativeProvider, useTheme, Button, StyledView, Icon, LightTheme, DarkTheme, CheckBox, Dialog, DialogHead, DialogBody, DialogDescription, DialogFoot, PortalProvider, Divider, StyledText, UserInput, Switch, Progress, } from "@nexara/nativeflow";
+import { NativeProvider, useTheme, Button, StyledView, Icon, LightTheme, DarkTheme, CheckBox, Dialog, DialogHead, DialogBody, DialogDescription, DialogFoot, PortalProvider, Divider, StyledText, UserInput, Switch, Progress, Link, Chip, } from "@nexara/nativeflow";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { ArrowRight, Eye, PhoneCall, } from "lucide-react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Font from 'expo-font';
+import type { DialogRefProps } from "../../src/types";
 
 
 const Home = () => {
 
     const theme = useTheme();
     const [isCheck, setIsCheck] = useState(false);
-    const [percentage, setPercentage] = useState(10);
-
+    // const [percentage, setPercentage] = useState(10);
+    // const [dialog1, setDialog1] = useState(false);
+    // const [dialog2, setDialog2] = useState(false);
+    const dialogRef1 = useRef<DialogRefProps>(null);
+    const dialogRef2 = useRef<DialogRefProps>(null);
     useEffect(() => {
         const loadFonts = async () => {
             await Font.loadAsync({
@@ -21,22 +25,22 @@ const Home = () => {
         loadFonts();
     }, []);
 
-    useEffect(() => {
-        const setIntervalref = setInterval(() => {
-            setPercentage((prev) => prev < 100 ? prev + 10 : 0)
-        }, 1000);
-        return () => clearInterval(setIntervalref)
-    }, []);
+    // useEffect(() => {
+    //     const setIntervalref = setInterval(() => {
+    //         setPercentage((prev) => prev < 100 ? prev + 10 : 0)
+    //     }, 1000);
+    //     return () => clearInterval(setIntervalref)
+    // }, []);
 
     return (<>
         <StyledView f={1} paddingHorizontal={20} paddingVertical={80} themeBg >
-
             <StyledView gap={25} w={"100%"}>
                 <StyledText variant='h1' primary tas>Signin</StyledText>
                 <StyledView gap={20}>
 
                     <StyledView gap={20}>
                         <UserInput
+
                             variant='outlined'
                             label="Mobile"
                             helperText="Please enter correct mobile number."
@@ -72,21 +76,43 @@ const Home = () => {
                     <CheckBox
                         text="Accept Terms & Conditions"
                         defaultValue={true}
+                        onPress={(e) => console.log(e)}
+                    />
+                    <Chip
+                        title="Delete"
+                    // renderRightIcon={<Icon renderIcon={<Trash2 />} />}
+                    // renderLeftIcon={<Icon renderIcon={<Trash2 />} />}
+                    // bg="red"
+                    // disabled
                     />
                     <Button
+                        // onPress={() => inputRef?.current?.open()}
                         onPress={() => theme?.toggleThemeMode()}
+                        // onPress={() => dialogRef1.current?.open()}
                         renderRightIcon={<Icon renderIcon={<ArrowRight size={17} color={"green"} />} />}
                         title="Login"
                         br={10}
                         fullWidth
+                    // ref
+                    />
+                    <Button
+                        // onPress={() => inputRef?.current?.open()}
+                        // onPress={() => setDialog2(true)}
+                        onPress={() => dialogRef2.current?.open()}
+                        renderRightIcon={<Icon renderIcon={<ArrowRight size={17} color={"green"} />} />}
+                        title="Login"
+                        br={10}
+                        fullWidth
+                    // refj
                     />
                 </StyledView>
                 <Switch
                     color="green"
                     activeTrackColor='green'
                 />
+                <Link title="Link" href="https://docs.nativebase.io/link" />
                 <Progress
-                    value={percentage}
+                    value={50}
                 />
 
 
@@ -104,12 +130,46 @@ const Home = () => {
 
 
 
-        <Dialog isVisible={isCheck} size='lg' variant='classic' onClose={() => { setIsCheck(false) }}>
+        <Dialog ref={dialogRef1} size='lg' variant='classic' onClose={() => { }}>
             <DialogHead title='Invite your team' />
             <DialogBody>
                 <DialogDescription>
                     Elevate user interactions with our versatile modals. Seamlessly integrate notifications, forms, and media displays. Make an impact effortlessly.
                 </DialogDescription>
+            </DialogBody>
+            <DialogFoot>
+                <Button
+                    variant='outlined'
+                    title='Cancel'
+                    titleColor='#000'
+                    paddingV={12}
+                    paddingH={14}
+                />
+                <Button
+                    variant='contained'
+                    title='Explore'
+                    bg='#000'
+                    titleColor='#fff'
+                    paddingV={12}
+                    paddingH={14}
+                />
+            </DialogFoot>
+        </Dialog>
+        <Dialog ref={dialogRef2} size='lg' variant='default' onClose={() => { }}>
+            <DialogHead title='Invite your team' />
+            <DialogBody >
+                <UserInput
+                    cursorColor='#000'
+                    inputTextColor='#000'
+                    label='Password'
+                    variant='outlined'
+                />
+                <UserInput
+                    cursorColor='#000'
+                    inputTextColor='#000'
+                    label='Password'
+                    variant='outlined'
+                />
             </DialogBody>
             <DialogFoot>
                 <Button

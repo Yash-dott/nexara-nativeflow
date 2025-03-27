@@ -1,12 +1,6 @@
 import type { PressableProps, StyleProp, TextStyle, ViewStyle } from "react-native";
-import type { ChipVariant } from "./common.type";
 
 export type ChipProps = PressableProps & {
-    /** Defines the style variant of the chip (e.g., outlined, filled, etc.) */
-    variant?: ChipVariant;
-
-    /** Determines the chip shape: 'round' for circular, 'flat' for rectangular */
-    type?: 'round' | 'flat';
 
     /** Text displayed inside the chip */
     title?: string;
@@ -19,6 +13,18 @@ export type ChipProps = PressableProps & {
 
     /** Font size of the title */
     fs?: number;
+
+    /** Border radius of the chip */
+    br?: number;
+
+    /** Spacing between elements inside the chip */
+    gap?: number;
+
+    /** Vertical padding inside the chip */
+    paddingV?: number;
+
+    /** Horizontal padding inside the chip */
+    paddingH?: number;
 
     /** Border width of the chip */
     stroke?: number;

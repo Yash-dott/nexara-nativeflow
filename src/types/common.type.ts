@@ -2,7 +2,6 @@ import type { typographySizeTypes } from "../constants/typographySizes";
 
 export type UserInputVariant = 'outlined' | 'standard';
 export type DialogVariant = 'classic' | 'default';
-export type ChipVariant = 'outlined' | 'contained';
 export type ButtonVariant = 'outlined' | 'contained';
 export type TypographyVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'h7';
 export type themeModeTypes = 'light' | 'dark';
@@ -32,6 +31,7 @@ type ThemeColorTypes = {
     dividerColor: string;
     switchColor: string;
     inputBgColor: string;
+    chipBgColor: string;
     error: string;
 }
 

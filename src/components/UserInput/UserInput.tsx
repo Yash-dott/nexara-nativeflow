@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 import { responsiveFontSize, verticalScale, horizontalScale } from '../../helpers/ResponsiveCalculations';
 import { useTheme } from '../../hooks';
@@ -6,7 +6,7 @@ import { StyledText, StyledView } from '../StyledComponents';
 import type { UserInputProps } from '../../types';
 import generateColors from './generateColors';
 
-const UserInput: React.FC<UserInputProps> = ({
+const UserInput = forwardRef<TextInput, UserInputProps>(({
     variant = 'standard',
     label,
     bg,
@@ -18,7 +18,6 @@ const UserInput: React.FC<UserInputProps> = ({
         helperText: 'h6',
     },
     inputTextColor,
-    // strokeColor = '#cbd5e1',
     strokeColor,
     cursorColor,
     placeholderColor,
@@ -34,7 +33,7 @@ const UserInput: React.FC<UserInputProps> = ({
     renderRightIcon,
     styles,
     ...props
-}) => {
+}, ref) => {
 
     const theme: any = useTheme();
 
@@ -86,6 +85,7 @@ const UserInput: React.FC<UserInputProps> = ({
                     renderLeftIcon
                 }
                 <TextInput
+                    ref={ref}
                     style={[STYLES.INPUT, styles?.input]}
                     placeholder={placeholder}
                     placeholderTextColor={computedPlaceholderColor}
@@ -104,7 +104,7 @@ const UserInput: React.FC<UserInputProps> = ({
             }
         </StyledView>
     </>)
-}
+});
 export default UserInput;
 export type { UserInputProps };
 

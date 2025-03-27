@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
     renderLeftIcon,
     renderRightIcon,
     disabled = false,
-    buttonContainerStyle = {},
+    buttonContainerStyle,
     textStyle,
     onPress,
     ...props
@@ -88,6 +88,7 @@ const Button: React.FC<ButtonProps> = ({
                         onPress={onPress}
                         rippleColor={rippleColor}
                         disabled={disabled}
+                        // ref={ref}
                         {...props}
                     >
                         <StyledView style={[STYLES.FLAT_BUTTON_CONT, STYLES.BUTTON_CONT, buttonContainerStyle]}>

@@ -83,6 +83,7 @@ const LightTheme: ThemeTypes = {
         dividerColor: "#DCDBDB",
 
         inputBgColor: '#f9fbfd',
+        chipBgColor: '#f9fbfd',
 
         switchColor: '#353935',
         error: '#ED2939',

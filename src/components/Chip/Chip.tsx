@@ -7,15 +7,16 @@ import { getChipColors } from './utils';
 import type { ChipProps } from '../../types';
 
 const Chip: React.FC<ChipProps> = ({
-    variant = 'contained',
-    type = 'round',
     title = 'Chip',
     bg,
     titleColor,
     fs,
+    br = 7,
+    gap = 7,
+    paddingV = 9,
+    paddingH = 13,
     stroke = 0.9,
     strokeColor,
-    color,
     rippleColor,
     disabled = false,
     renderLeftIcon,
@@ -27,16 +28,13 @@ const Chip: React.FC<ChipProps> = ({
 
     const theme: any = useTheme();
 
-    const { buttonTextColor, buttonBorderColor } = getChipColors({
+    const { buttonTextColor, buttonBorderColor, backgroundColor } = getChipColors({
         theme,
-        variant,
         bg,
         titleColor,
         strokeColor,
-        color,
         disabled
     });
-
 
     const STYLES = StyleSheet.create({
         CONTAINER: {
@@ -44,13 +42,11 @@ const Chip: React.FC<ChipProps> = ({
             alignItems: 'center',
             borderWidth: stroke,
             borderColor: buttonBorderColor,
-            // backgroundColor: backgroundColor,
-            backgroundColor: '#F9FAFB',
-            // borderRadius: moderateScale(type === 'round' ? 20 : 7),
-            borderRadius: verticalScale(7),
-            paddingVertical: verticalScale(9),
-            paddingHorizontal: horizontalScale(16),
-            gap: horizontalScale(6)
+            backgroundColor: backgroundColor,
+            borderRadius: verticalScale(br),
+            paddingVertical: verticalScale(paddingV),
+            paddingHorizontal: horizontalScale(paddingH),
+            gap: horizontalScale(gap)
         },
         TEXT: {
             color: buttonTextColor,

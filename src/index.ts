@@ -20,6 +20,7 @@ export { Menu, MenuItem, MenuItemLabel } from './components/Menu';
 export { default as IconButton } from './components/IconButton/IconButton';
 export { default as Icon } from './components/Icon/Icon';
 export { default as PortalProvider } from './components/Portal/PortalProvider';
+export { default as Link } from './components/Link/Link';
 
 export { default as LightTheme } from './themes/LightTheme';
 export { default as DarkTheme } from './themes/DarkTheme';

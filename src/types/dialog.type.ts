@@ -2,6 +2,11 @@ import type { ReactNode } from "react";
 import type { StyleProp, TextStyle, ViewStyle } from "react-native";
 import type { DialogVariant, TypographyVariant } from "./common.type";
 
+
+export type DialogRefProps = {
+    open: () => void;
+    close: () => void;
+}
 export type DialogProps = {
     /** Defines the dialog style variant */
     variant?: DialogVariant;

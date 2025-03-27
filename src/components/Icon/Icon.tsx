@@ -12,10 +12,6 @@ const Icon: React.FC<IconProps> = ({
     renderIcon,
     color
 }) => {
-    // let theme = null;
-    // if (!color && !renderIcon?.props.color) {
-    //     theme = useTheme();
-    // }
     const theme = useTheme(!color && !renderIcon?.props.color);
 
     return (<>
