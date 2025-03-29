@@ -1,8 +1,8 @@
 {
   "name": "@nexara/nativeflow",
-  "version": "0.1.0",
-  "description": "ui",
-  "source": "./src/index.tsx",
+  "version": "0.1.1",
+  "description": "Beautiful, responsive, and customizable UI components for React Native – built for performance and seamless experiences.",
+  "source": "./src/index.ts",
   "main": "./lib/commonjs/index.js",
   "module": "./lib/module/index.js",
   "exports": {
@@ -59,11 +59,13 @@
   "bugs": {
     "url": "https://github.com/Yash-dott/nexara-nativeflow/issues"
   },
-  "homepage": "https://github.com/Yash-dott/nexara-nativeflow#readme",
+  "homepage": "https://nexara-nativeflow-docs.onrender.com",
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@commitlint/config-conventional": "^17.0.2",
     "@evilmartians/lefthook": "^1.5.0",
     "@react-native/eslint-config": "^0.73.1",
@@ -80,6 +82,9 @@
     "react": "18.3.1",
     "react-native": "0.76.7",
     "react-native-builder-bob": "^0.36.0",
+    "react-native-gesture-handler": "^2.24.0",
+    "react-native-reanimated": "~3.16.1",
+    "react-native-svg": "^15.11.2",
     "release-it": "^17.10.0",
     "typescript": "^5.2.2"
   },
@@ -88,7 +93,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-reanimated": "~3.16.1"
   },
   "workspaces": [
     "example"
@@ -183,5 +189,9 @@
     "languages": "js",
     "type": "library",
     "version": "0.48.3"
+  },
+  "dependencies": {
+    "color": "^5.0.0",
+    "lucide-react-native": "^0.479.0"
   }
 }
