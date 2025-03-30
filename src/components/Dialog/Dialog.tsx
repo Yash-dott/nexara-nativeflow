@@ -1,7 +1,7 @@
-import React, { cloneElement, forwardRef, useEffect, useImperativeHandle, useState } from 'react';
+import React, { cloneElement, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import type { ReactElement } from "react";
-import { Keyboard, BackHandler } from 'react-native';
-import Animated, { useSharedValue, useAnimatedStyle, withTiming, withSpring } from 'react-native-reanimated';
+import { Keyboard, BackHandler, StyleSheet, Animated } from 'react-native';
+import type { ViewStyle } from 'react-native';
 import { dialogSizes } from '../../constants';
 import Portal from '../Portal/Portal';
 import type { DialogProps, DialogRefProps } from '../../types';
@@ -9,36 +9,35 @@ import type { DialogProps, DialogRefProps } from '../../types';
 
 const Dialog = forwardRef<DialogRefProps, DialogProps>(({
     variant = 'default',
-    // isVisible = false,
     size = 'lg',
     fullScreen,
     backdropColor = 'rgba(0, 0, 0, 0.5)',
-    animationDuration = 800,
+    // animationDuration = 800,
     onClose,
     children,
 }, ref) => {
 
     const [dialogVisible, setDialogVisible] = useState(false);
-    const scale = useSharedValue(0.8);
-    const opacity = useSharedValue(0);
+    const scale = useRef(new Animated.Value(0.9)).current;
+    const opacity = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-        opacity.value = withTiming(dialogVisible ? 1 : 0);
-        scale.value = withSpring(dialogVisible ? 1 : 0.8,
-            {
-                duration: animationDuration,
-                dampingRatio: 0.6,
-                stiffness: 36,
-                overshootClamping: false,
-                restDisplacementThreshold: 0.01,
-                restSpeedThreshold: 0.01,
-            }
-        );
+        Animated.timing(opacity, {
+            toValue: dialogVisible ? 1 : 0,
+            duration: 300,
+            useNativeDriver: true,
+        }).start();
+        Animated.spring(scale, {
+            toValue: dialogVisible ? 1 : 0.9,
+            damping: 10,
+            stiffness: 90,
+            useNativeDriver: true,
+        }).start();
     }, [dialogVisible]);
 
     useEffect(() => {
-        BackHandler.addEventListener('hardwareBackPress', hardwareBackPress)
-        return () => BackHandler.removeEventListener('hardwareBackPress', hardwareBackPress);
+        const handler = BackHandler.addEventListener('hardwareBackPress', hardwareBackPress);
+        return () => handler.remove();
     }, [dialogVisible]);
 
     const hardwareBackPress = () => {
@@ -51,34 +50,20 @@ const Dialog = forwardRef<DialogRefProps, DialogProps>(({
         close: () => setDialogVisible(false)
     }));
 
-    const backdropAnimatedStyle = useAnimatedStyle(() => {
-        return {
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            backgroundColor: backdropColor,
-            justifyContent: 'center',
-            alignItems: 'center',
-            opacity: opacity.value
-        }
-    });
-    const modalContAnimatedStyle = useAnimatedStyle(() => {
-        return {
-            backgroundColor: '#fff',
-            borderRadius: 5,
-            width: `${dialogSizes[size]}%`,
-            borderWidth: 1,
-            borderColor: '#d4d4d4',
-            minHeight: fullScreen ? '100%' : 'auto',
-            maxHeight: fullScreen ? '100%' : '80%',
-            opacity: opacity.value,
-            transform: [{
-                scale: scale.value
-            }],
-        }
-    });
+    const backdropAnimatedStyles = {
+        opacity: opacity,
+        backgroundColor: backdropColor,
+    };
+    const modalContAnimatedStyles = {
+        transform: [{ scale }],
+        opacity: opacity,
+    };
+    const dynamicModalContStyles: ViewStyle = {
+        minHeight: fullScreen ? '100%' : 'auto',
+        maxHeight: fullScreen ? '100%' : '80%',
+        width: `${dialogSizes[size]}%`,
+    };
+
     const renderChildrenWithVariant = () => {
         return React.Children.map(children, (child) => {
             if (React.isValidElement(child)) {
@@ -98,12 +83,12 @@ const Dialog = forwardRef<DialogRefProps, DialogProps>(({
     return (<>
         <Portal name='dialog'>
             <Animated.View
-                style={backdropAnimatedStyle}
+                style={[STYLES.BACKDROP_CONT, backdropAnimatedStyles]}
                 pointerEvents={dialogVisible ? 'auto' : 'none'}
                 onStartShouldSetResponder={handleStartShouldSetResponder}
             >
                 <Animated.View
-                    style={modalContAnimatedStyle}
+                    style={[STYLES.MODAL_CONT, dynamicModalContStyles, modalContAnimatedStyles]}
                     onStartShouldSetResponder={() => true}
                 >
                     {renderChildrenWithVariant()}
@@ -114,3 +99,21 @@ const Dialog = forwardRef<DialogRefProps, DialogProps>(({
 });
 export default Dialog;
 export type { DialogProps };
+
+const STYLES = StyleSheet.create({
+    BACKDROP_CONT: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    MODAL_CONT: {
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        borderWidth: 1,
+        borderColor: '#d4d4d4'
+    }
+});

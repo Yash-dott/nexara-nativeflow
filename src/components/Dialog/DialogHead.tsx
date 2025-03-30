@@ -19,24 +19,13 @@ const DialogHead: React.FC<props> = ({
     textStyle,
     children
 }) => {
-    const STYLES = StyleSheet.create({
-        CONTAINER: {
-            borderBottomWidth: variant == 'default' ? 0.7 : 0,
-            borderColor: '#d4d4d4',
-            padding: moderateScale(variant === 'default' ? 16 : 25),
-            paddingBottom: moderateScale(16),
-            justifyContent: 'space-between',
-            flexDirection: 'row',
-        },
-        HEADER_TEXT: {
-            // fontSize: responsiveFontSize(15),
-            fontWeight: 'bold',
-            color: '#000',
-        }
-    });
+    const dynamicStyles = {
+        borderBottomWidth: variant == 'default' ? 0.7 : 0,
+        padding: moderateScale(variant === 'default' ? 16 : 25),
+    };
     return (<>
 
-        <View style={[STYLES.CONTAINER, containerStyle]}>
+        <View style={[STYLES.CONTAINER, dynamicStyles, containerStyle]}>
             <View>
                 <StyledText style={[STYLES.HEADER_TEXT, textStyle]} fs={fs} variant={textVariant}>{title}</StyledText>
                 {children}
@@ -49,3 +38,17 @@ const DialogHead: React.FC<props> = ({
 }
 export default DialogHead;
 export type { DialogHeadProps };
+
+
+const STYLES = StyleSheet.create({
+    CONTAINER: {
+        borderColor: '#d4d4d4',
+        paddingBottom: moderateScale(16),
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+    },
+    HEADER_TEXT: {
+        fontWeight: 'bold',
+        color: '#000',
+    }
+});

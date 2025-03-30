@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useMemo } from "react";
+import type { JSX } from 'react';
 import { verticalScale } from "../../helpers/ResponsiveCalculations";
 import { useTheme } from "../../hooks";
 
@@ -14,14 +15,18 @@ const Icon: React.FC<IconProps> = ({
 }) => {
     const theme = useTheme(!color && !renderIcon?.props.color);
 
-    return (<>
-        {React.cloneElement(renderIcon as React.ReactElement<any>,
+    const renderCallBackIcon = useMemo(() => {
+        return React.cloneElement(renderIcon as React.ReactElement<any>,
             {
                 ...renderIcon?.props,
                 size: verticalScale(renderIcon?.props?.size ?? 15),
                 color: color ?? (renderIcon?.props.color ?? theme?.colors.iconPrimary)
             }
-        )}
+        )
+    }, [color, theme]);
+
+    return (<>
+        {renderCallBackIcon}
     </>)
 }
 export default Icon;

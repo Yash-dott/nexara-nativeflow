@@ -1,5 +1,6 @@
 import type { PressableProps, StyleProp, TextStyle, ViewStyle } from "react-native";
 import type { ButtonVariant, TypographyVariant } from "./common.type";
+import type { JSX } from "react";
 
 /**
  * @see https://rn-nativeflow-docs.onrender.com/docs/components/button

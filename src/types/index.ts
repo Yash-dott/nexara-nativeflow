@@ -10,3 +10,4 @@ export * from './stack.type';
 export * from './styledComponents.type';
 export * from './switch.type';
 export * from './userInput.type';
+export * from './progress.type'

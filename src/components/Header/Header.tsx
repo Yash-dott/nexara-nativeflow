@@ -1,4 +1,5 @@
 import React from 'react';
+import type { JSX } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { moderateScale, moderateVerticalScale, responsiveFontSize } from '../../helpers/ResponsiveCalculations';
 import { StyledText } from '../StyledComponents';

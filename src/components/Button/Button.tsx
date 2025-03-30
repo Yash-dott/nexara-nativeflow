@@ -1,5 +1,7 @@
 import React from 'react';
+import type { JSX } from 'react';
 import { StyleSheet } from "react-native";
+import type { ViewStyle } from 'react-native';
 import { verticalScale, horizontalScale } from "../../helpers/ResponsiveCalculations";
 import { StyledText, StyledView } from '../StyledComponents';
 import { useTheme } from '../../hooks';
@@ -44,110 +46,143 @@ const Button: React.FC<ButtonProps> = ({
         strokeColor,
         disabled
     });
-
-    const STYLES = StyleSheet.create({
+    const dynamicStyles = {
         BUTTON_CONT: {
             backgroundColor: backgroundColor,
             borderWidth: variant === 'contained' ? 0 : stroke,
             borderColor: buttonBorderColor,
-            maxWidth: '100%',
         },
         BUTTON_TEXT: {
             color: buttonTextColor,
-            textAlign: 'center',
             fontFamily: titleFF ?? '',
         },
-        FLAT_BTN_CONT: {
+        FLAT_BTN_MAIN_CONT: {
             borderRadius: verticalScale(br),
-            overflow: 'hidden',
-            alignSelf: fullWidth ? 'stretch' : 'flex-start',
+            alignSelf: fullWidth ? 'stretch' : 'flex-start' as ViewStyle['alignSelf'],
         },
-        FLAT_BUTTON_CONT: {
+        FLAT_BTN_INNER_CONT: {
             paddingVertical: verticalScale(paddingV),
             paddingHorizontal: horizontalScale(!fullWidth ? paddingH : 30),
             borderRadius: verticalScale(br),
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: horizontalScale(10),
         },
-        ROUND_BUTTON_CONT: {
-            borderRadius: verticalScale(100),
+        ROUND_BTN_INNER_CONT: {
             height: verticalScale(size),
             width: verticalScale(size),
-            alignItems: 'center',
-            justifyContent: 'center',
         }
-    });
+    };
 
-    return (
-        <>
-            {type === 'flat' && (
-                <StyledView style={STYLES.FLAT_BTN_CONT}>
-                    <TouchableRipple
-                        onPress={onPress}
-                        rippleColor={rippleColor}
-                        disabled={disabled}
-                        // ref={ref}
-                        {...props}
-                    >
-                        <StyledView style={[STYLES.FLAT_BUTTON_CONT, STYLES.BUTTON_CONT, buttonContainerStyle]}>
-                            {(renderLeftIcon || (fullWidth && renderRightIcon)) && (
-                                <StyledView f={fullWidth ? 1 : undefined}>
-                                    {renderLeftIcon && React.cloneElement(renderLeftIcon, {
-                                        color: buttonIconColor
-                                    })}
-                                </StyledView>
-                            )}
+    const cloneElement = (element: JSX.Element): JSX.Element | null => {
+        if (React.isValidElement<{ color?: string }>(element)) {
+            return React.cloneElement(element, {
+                color: buttonIconColor
+            })
+        }
+        return null;
+    }
 
-                            <StyledView
-                                flexShrink={1}
-                                f={fullWidth ? 8 : undefined}
-                            >
-                                <StyledText numberOfLines={1} fs={titleFS} variant={titleVariant} style={[STYLES.BUTTON_TEXT, textStyle]}>
-                                    {title}
-                                </StyledText>
-                            </StyledView>
-
-                            {(renderRightIcon || (fullWidth && renderLeftIcon)) && (
-                                <StyledView alignItems='flex-end' f={fullWidth ? 1 : undefined}>
-                                    {renderRightIcon && React.cloneElement(renderRightIcon, {
-                                        color: buttonIconColor
-                                    })}
-                                </StyledView>
-                            )}
-                        </StyledView>
-                    </TouchableRipple>
-                </StyledView>
-            )}
-
-            {type === 'round' && (
-                <StyledView
-                    alignSelf='flex-start'
-                    borderRadius={verticalScale(100)}
-                    overflow='hidden'
-                    style={{
-                        overflow: 'hidden',
-                        borderRadius: verticalScale(100),
-                        alignSelf: 'flex-start'
-                    }}
+    return (<>
+        {type === 'flat' && (
+            <StyledView style={[STYLES.FLAT_BTN_MAIN_CONT, dynamicStyles.FLAT_BTN_MAIN_CONT]}>
+                <TouchableRipple
+                    onPress={onPress}
+                    rippleColor={rippleColor}
+                    disabled={disabled}
+                    // ref={ref}
+                    {...props}
                 >
-                    <TouchableRipple
-                        onPress={onPress}
-                        rippleColor={rippleColor}
-                        {...props}
-                    >
+                    <StyledView
+                        style={[
+                            STYLES.FLAT_BTN_INNER_CONT,
+                            STYLES.BUTTON_CONT,
+                            dynamicStyles.FLAT_BTN_INNER_CONT,
+                            dynamicStyles.BUTTON_CONT,
+                            buttonContainerStyle
+                        ]}>
+                        {(renderLeftIcon || (fullWidth && renderRightIcon)) && (
+                            <StyledView f={fullWidth ? 1 : undefined}>
+                                {renderLeftIcon && cloneElement(renderLeftIcon)}
+                            </StyledView>
+                        )}
+
                         <StyledView
-                            style={[STYLES.BUTTON_CONT, STYLES.ROUND_BUTTON_CONT, buttonContainerStyle]}
+                            flexShrink={1}
+                            f={fullWidth ? 8 : undefined}
                         >
-                            {renderIcon}
+                            <StyledText numberOfLines={1} fs={titleFS} variant={titleVariant}
+                                style={[
+                                    STYLES.BUTTON_TEXT,
+                                    dynamicStyles.BUTTON_TEXT,
+                                    textStyle
+                                ]}
+                            >
+                                {title}
+                            </StyledText>
                         </StyledView>
-                    </TouchableRipple>
-                </StyledView>
-            )}
-        </>
+
+                        {(renderRightIcon || (fullWidth && renderLeftIcon)) && (
+                            <StyledView alignItems='flex-end' f={fullWidth ? 1 : undefined}>
+                                {renderRightIcon && cloneElement(renderRightIcon)}
+                            </StyledView>
+                        )}
+                    </StyledView>
+                </TouchableRipple>
+            </StyledView>
+        )}
+
+        {type === 'round' && (
+            <StyledView style={STYLES.ROUND_BTN_MAIN_CONT} >
+                <TouchableRipple
+                    onPress={onPress}
+                    rippleColor={rippleColor}
+                    {...props}
+                >
+                    <StyledView
+                        style={[
+                            STYLES.BUTTON_CONT,
+                            STYLES.ROUND_BTN_INNER_CONT,
+                            dynamicStyles.BUTTON_CONT,
+                            dynamicStyles.ROUND_BTN_INNER_CONT,
+                            buttonContainerStyle
+                        ]}
+                    >
+                        {renderIcon && cloneElement(renderIcon)}
+                    </StyledView>
+                </TouchableRipple>
+            </StyledView>
+        )}
+    </>
     );
 };
 
 export default Button;
 export type { ButtonProps };
+
+const STYLES = StyleSheet.create({
+    BUTTON_CONT: {
+        maxWidth: '100%',
+    },
+    BUTTON_TEXT: {
+        textAlign: 'center',
+    },
+    FLAT_BTN_MAIN_CONT: {
+        overflow: 'hidden',
+    },
+    FLAT_BTN_INNER_CONT: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: horizontalScale(10),
+    },
+    ROUND_BTN_MAIN_CONT: {
+        overflow: 'hidden',
+        borderRadius: verticalScale(100),
+        // alignSelf: 'flex-start',
+    },
+    ROUND_BTN_INNER_CONT: {
+        alignItems: 'center',
+        justifyContent: 'center',
+    }
+});
+
+
+

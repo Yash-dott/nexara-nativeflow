@@ -7,11 +7,13 @@ const VStack: React.FC<VStackProps> = ({
     children,
     align,
     gap = 10,
-    containerStyle,
+    style,
+    ref,
     ...rest
 }) => {
 
     const calculatedGap: number = useMemo(() => horizontalScale(gap), [gap]);
+
     const viewProps = {
         flexDirection: 'column',
         alignItems: align,
@@ -20,7 +22,8 @@ const VStack: React.FC<VStackProps> = ({
     return (<>
         <View
             {...viewProps}
-            style={containerStyle}
+            style={style}
+            ref={ref}
             {...rest}
         >
             {children}

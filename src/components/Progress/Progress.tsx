@@ -1,33 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Animated, StyleSheet } from "react-native";
 import { moderateScale, verticalScale, } from "../../helpers/ResponsiveCalculations";
 import { StyledView } from '../StyledComponents';
 import { useTheme } from '../../hooks';
-
-
-type ProgressProps = {
-    /** Current progress value (0-100) */
-    value?: number;
-
-    /** Thickness of the progress bar */
-    thickness?: number;
-
-    /** Border radius of the progress bar */
-    br?: number;
-
-    /** Background color of the track (unfilled part) */
-    trackColor?: string;
-
-    /** Color of the progress (filled part) */
-    color?: string;
-}
+import type { ProgressProps } from '../../types';
 
 const Progress: React.FC<ProgressProps> = ({
     value = 50,
     thickness = 5,
     br = 100,
     trackColor = '#E8E8E8',
-    color,
+    progressColor,
 }) => {
 
     const animatedWidth = useRef(new Animated.Value(value)).current;
@@ -35,35 +18,49 @@ const Progress: React.FC<ProgressProps> = ({
 
     useEffect(() => {
         Animated.timing(animatedWidth, {
-            toValue: value,
+            toValue: value / 100,
             duration: 1000,
-            useNativeDriver: false,
+            useNativeDriver: true,
         }).start();
     }, [value]);
 
-    const STYLES = StyleSheet.create({
+    const dynamicStyles = useMemo(() => ({
         TRACK: {
             backgroundColor: trackColor,
             borderRadius: moderateScale(br),
-            overflow: 'hidden'
+            height: verticalScale(thickness),
         },
         TRACK_ITEM: {
-            backgroundColor: color ?? theme?.colors.primary,
-            height: verticalScale(thickness),
-            borderRadius: moderateScale(br)
+            backgroundColor: progressColor ?? theme?.colors.primary,
+            borderRadius: moderateScale(br),
         }
-    });
+    }), [br, trackColor, thickness, progressColor, theme]);
+
+    const animatedViewStyle = {
+        transform: [{ scaleX: animatedWidth }],
+        transformOrigin: 'left'
+    }
 
     return (<>
-        <StyledView style={STYLES.TRACK}>
-            <Animated.View style={[STYLES.TRACK_ITEM, {
-                width: animatedWidth.interpolate({
-                    inputRange: [0, 100],
-                    outputRange: ['0%', '100%'],
-                })
-            }]} />
+        <StyledView
+            style={[STYLES.TRACK, dynamicStyles.TRACK]}
+        >
+            <Animated.View
+                style={[STYLES.TRACK_ITEM, dynamicStyles.TRACK_ITEM, animatedViewStyle]}
+            />
         </StyledView>
     </>);
 };
 export default Progress;
 export type { ProgressProps };
+
+const STYLES = StyleSheet.create({
+    TRACK: {
+        overflow: 'hidden',
+        width: '100%',
+    },
+    TRACK_ITEM: {
+        width: "100%",
+        height: '100%'
+    }
+});
