@@ -1,4 +1,4 @@
-import { NativeProvider, useTheme, Button, StyledView, Icon, LightTheme, DarkTheme, CheckBox, Dialog, DialogHead, DialogBody, DialogDescription, DialogFoot, PortalProvider, Divider, StyledText, UserInput, Switch, Progress, Link, Chip, } from "@nexara/nativeflow";
+import { NativeProvider, useTheme, Button, StyledView, Icon, LightTheme, DarkTheme, CheckBox, Dialog, DialogHead, DialogBody, DialogDescription, DialogFoot, PortalProvider, Divider, StyledText, UserInput, Switch, Progress, Link, Chip,  } from "@nexara/nativeflow";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { ArrowRight, Eye, PhoneCall, } from "lucide-react-native";
 import { useEffect, useRef, useState } from "react";
@@ -10,7 +10,7 @@ const Home = () => {
 
     const theme = useTheme();
     const [isCheck, setIsCheck] = useState(false);
-    // const [percentage, setPercentage] = useState(10);
+    const [percentage, setPercentage] = useState(10);
     // const [dialog1, setDialog1] = useState(false);
     // const [dialog2, setDialog2] = useState(false);
     const dialogRef1 = useRef<DialogRefProps>(null);
@@ -25,12 +25,12 @@ const Home = () => {
         loadFonts();
     }, []);
 
-    // useEffect(() => {
-    //     const setIntervalref = setInterval(() => {
-    //         setPercentage((prev) => prev < 100 ? prev + 10 : 0)
-    //     }, 1000);
-    //     return () => clearInterval(setIntervalref)
-    // }, []);
+    useEffect(() => {
+        const setIntervalref = setInterval(() => {
+            setPercentage((prev) => prev < 100 ? prev + 10 : 0)
+        }, 1000);
+        return () => clearInterval(setIntervalref)
+    }, []);
 
     return (<>
         <StyledView f={1} paddingHorizontal={20} paddingVertical={80} themeBg >
@@ -105,14 +105,13 @@ const Home = () => {
                         fullWidth
                     // refj
                     />
+                        <Link title="Link" href="https://docs.nativebase.io/link" />
+
                 </StyledView>
                 <Switch
-                    color="green"
-                    activeTrackColor='green'
                 />
-                <Link title="Link" href="https://docs.nativebase.io/link" />
                 <Progress
-                    value={50}
+                    value={percentage}
                 />
 
 
@@ -200,7 +199,7 @@ const App = () => {
         <NativeProvider theme={{
             // light: createTheme({...LightTheme.colors, primary: "green", secondary: "#FFF4E3" }),
             // dark: createTheme({ primary: "#ffffff", secondary: "#000000" })
-            light: { ...LightTheme, colors: { ...LightTheme.colors, primary: 'green', secondary: '#fff', iconSecondary: '#fff' } },
+            light: { ...LightTheme, colors: { ...LightTheme.colors, primary: '#008000', secondary: '#fff', iconSecondary: '#fff' } },
             dark: { ...DarkTheme, colors: { ...DarkTheme.colors, secondary: '#121212' } }
         }}>
             <PortalProvider>

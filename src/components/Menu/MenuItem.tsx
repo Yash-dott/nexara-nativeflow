@@ -5,8 +5,6 @@ import { horizontalScale, moderateScale, verticalScale } from "../../helpers/Res
 import type { MenuItemProps } from "../../types";
 
 const MenuItem: React.FC<MenuItemProps> = ({
-    // paddingV = 12,
-    // paddingH = 12,
     paddingV = 11,
     paddingH = 17,
     gap = 12,

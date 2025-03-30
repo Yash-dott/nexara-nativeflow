@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import { horizontalScale } from "../../helpers/ResponsiveCalculations";
+import type { ViewStyle } from 'react-native';
 import type { HStackProps } from "../../types";
 
 const HStack: React.FC<HStackProps> = ({
@@ -8,26 +9,25 @@ const HStack: React.FC<HStackProps> = ({
     align = 'center',
     fWrap = 'wrap',
     gap = 10,
-    containerStyle,
+    style,
     children,
+    ref,
     ...rest
 }) => {
     const calculatedGap: number = useMemo(() => horizontalScale(gap), [gap]);
-    const viewProps = {
+    
+    const viewProps: ViewStyle = {
         gap: calculatedGap,
+        flexDirection: 'row',
+        justifyContent: justify,
+        alignItems: align,
+        flexWrap: fWrap,
     };
-    const STYLES = StyleSheet.create({
-        HSTACK: {
-            flexDirection: 'row',
-            justifyContent: justify,
-            alignItems: align,
-            flexWrap: fWrap,
-        }
-    });
 
     return (<>
         <View
-            style={[viewProps, STYLES.HSTACK, containerStyle]}
+            style={[viewProps, style]}
+            ref={ref}
             {...rest}
         >
             {children}

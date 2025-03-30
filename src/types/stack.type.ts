@@ -1,4 +1,5 @@
-import type { FlexStyle, StyleProp, ViewStyle } from "react-native";
+import React from "react";
+import type { FlexStyle, StyleProp, View, ViewStyle } from "react-native";
 
 export type HStackProps = ViewStyle & {
     /** 
@@ -24,12 +25,18 @@ export type HStackProps = ViewStyle & {
     /** 
      * Custom styles for the container. 
      */
-    containerStyle?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
 
     /** 
      * Child components to be rendered inside the HStack. 
      */
     children?: React.ReactNode;
+
+    /**  
+     * A ref to access the underlying View component.  
+     * This can be used for measuring layout, animations, or imperative interactions.  
+     */
+    ref?: React.RefObject<View>
 };
 
 export type VStackProps = ViewStyle & {
@@ -51,5 +58,11 @@ export type VStackProps = ViewStyle & {
     /** 
      * Custom styles for the container. 
      */
-    containerStyle?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>;
+
+    /**  
+        * A ref to access the underlying View component.  
+        * This can be used for measuring layout, animations, or imperative interactions.  
+    */
+    ref?: React.RefObject<View>
 };

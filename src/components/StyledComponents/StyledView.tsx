@@ -15,10 +15,13 @@ const StyledView: React.FC<StyledViewProps> = ({
     w,
     children,
     style,
+    ref,
     ...rest
 }) => {
+    
     const theme = useTheme(themeBg);
-    return (<>
+
+    return (
         <View
             style={[{
                 flex: f,
@@ -31,11 +34,12 @@ const StyledView: React.FC<StyledViewProps> = ({
             },
                 style
             ]}
+            ref={ref}
             {...rest}
         >
             {children}
         </View>
-    </>);
+    );
 };
 
 export default StyledView;

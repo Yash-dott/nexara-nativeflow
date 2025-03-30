@@ -1,4 +1,3 @@
-import Color from "color";
 import { dialogSizes, typographySizes } from "../constants";
 import type { ThemeTypes } from "../types";
 
@@ -56,7 +55,7 @@ import type { ThemeTypes } from "../types";
 //     switchColor: '#353935',
 //     error: '#ED2939',
 // })
-console.log(Color('rgba(0, 0, 0, 1)').alpha(0.12).rgb().string())
+// console.log(Color('rgba(0, 0, 0, 1)').alpha(0.12).rgb().string())
 const LightTheme: ThemeTypes = {
     isDark: false,
     colors: {

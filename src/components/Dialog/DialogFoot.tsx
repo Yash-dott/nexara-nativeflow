@@ -14,22 +14,24 @@ const DialogFoot: React.FC<props> = ({
     containerStyle,
     children
 }) => {
-
-    const STYLES = StyleSheet.create({
-        CONTAINER: {
-            borderTopWidth: variant === 'default' ? 0.7 : 0,
-            borderColor: '#d4d4d4',
-            padding: moderateScale(variant === 'default' ? 16 : 20),
-            paddingHorizontal: moderateScale(variant === 'default' ? 16 : 25),
-            justifyContent: 'flex-end',
-            gap: moderateScale(15)
-        },
-    });
+    const dynamicStyles = {
+        borderTopWidth: variant === 'default' ? 0.7 : 0,
+        padding: moderateScale(variant === 'default' ? 16 : 20),
+        paddingHorizontal: moderateScale(variant === 'default' ? 16 : 25),
+    };
     return (<>
-        <Stack.H justify='flex-end' gap={moderateScale(15)} containerStyle={[STYLES.CONTAINER, containerStyle]}>
+        <Stack.H  style={[STYLES.CONTAINER, dynamicStyles, containerStyle]}>
             {children}
         </Stack.H>
     </>);
 }
 export default DialogFoot;
 export type { DialogFootProps };
+
+const STYLES = StyleSheet.create({
+    CONTAINER: {
+        borderColor: '#d4d4d4',
+        justifyContent: 'flex-end',
+        gap: moderateScale(15)
+    },
+});

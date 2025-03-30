@@ -23,9 +23,6 @@ export type DialogProps = {
     /** Background color of the backdrop */
     backdropColor?: string;
 
-    /** Duration of the animation in milliseconds */
-    animationDuration?: number;
-
     /** Callback function triggered when the dialog is closed */
     onClose?: () => void;
 

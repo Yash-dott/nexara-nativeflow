@@ -1,12 +1,13 @@
-import { forwardRef, useMemo } from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { useMemo } from 'react';
+import { TextInput, StyleSheet, type ViewStyle } from 'react-native';
+import type { TextStyle } from 'react-native';
 import { responsiveFontSize, verticalScale, horizontalScale } from '../../helpers/ResponsiveCalculations';
 import { useTheme } from '../../hooks';
 import { StyledText, StyledView } from '../StyledComponents';
 import type { UserInputProps } from '../../types';
 import generateColors from './generateColors';
 
-const UserInput = forwardRef<TextInput, UserInputProps>(({
+const UserInput: React.FC<UserInputProps> = ({
     variant = 'standard',
     label,
     bg,
@@ -32,8 +33,9 @@ const UserInput = forwardRef<TextInput, UserInputProps>(({
     renderLeftIcon,
     renderRightIcon,
     styles,
+    ref,
     ...props
-}, ref) => {
+}) => {
 
     const theme: any = useTheme();
 
@@ -43,50 +45,44 @@ const UserInput = forwardRef<TextInput, UserInputProps>(({
         computedLabelColor
     } = useMemo(() => generateColors(theme, isError, cursorColor, placeholderColor, labelColor), [theme, isError, cursorColor, placeholderColor, labelColor]);
 
-    const STYLES = StyleSheet.create({
+    const dynamicStyles = {
         INPUT_CONT: {
-            flexDirection: 'row',
-            alignItems: multiline ? 'flex-start' : 'center',
+            alignItems: multiline ? 'flex-start' : 'center' as ViewStyle['alignItems'],
             backgroundColor: disabled ? theme.colors.disable : bg ?? theme.colors.inputBgColor,
             borderColor: isError ? theme.colors.error : strokeColor ?? theme.colors.outline,
             borderWidth: variant === 'standard' ? 0 : stroke,
             borderBottomWidth: stroke,
-            paddingHorizontal: horizontalScale(14),
             borderRadius: verticalScale(br),
-            gap: horizontalScale(10),
-            height: multiline ? 'auto' : verticalScale(48),
-            paddingVertical: multiline ? horizontalScale(10) : 'auto',
+            height: multiline ? undefined : verticalScale(48),
+            paddingVertical: multiline ? horizontalScale(10) : undefined,
         },
         INPUT: {
             color: disabled ? theme.colors.textDisable : isError ? theme.colors.error : inputTextColor ?? theme.colors.textPrimary,
             fontSize: responsiveFontSize(inputFs),
-            textAlignVertical: multiline ? 'top' : 'center',
-            minHeight: multiline ? 100 : 'auto',
-            maxHeight: multiline ? 150 : 'auto',
-            padding: 0,
-            flex: 1,
+            textAlignVertical: (multiline ? 'top' : 'center') as TextStyle['textAlignVertical'],
+            minHeight: multiline ? 100 : undefined,
+            maxHeight: multiline ? 150 : undefined,
         },
         ERROR_HELPER_TEXT: {
             color: theme.colors.error,
-            paddingHorizontal: 5
         }
-    });
+    };
 
     return (<>
-        <StyledView gap={verticalScale(5)} style={styles?.mainContainer}>
+        <StyledView gap={verticalScale(5)} style={styles?.mainContainer} w='100%'>
             {
                 label &&
                 <StyledText variant={textVariant?.label} fs={labelFs} color={computedLabelColor} style={styles?.label}>{label}</StyledText>
             }
             <StyledView
-                style={[STYLES.INPUT_CONT, styles?.inputContainer]}
+                style={[STYLES.INPUT_CONT, dynamicStyles.INPUT_CONT, styles?.inputContainer]}
             >
                 {
                     renderLeftIcon
                 }
                 <TextInput
                     ref={ref}
-                    style={[STYLES.INPUT, styles?.input]}
+                    style={[STYLES.INPUT, dynamicStyles.INPUT, styles?.input]}
                     placeholder={placeholder}
                     placeholderTextColor={computedPlaceholderColor}
                     editable={!disabled}
@@ -100,25 +96,35 @@ const UserInput = forwardRef<TextInput, UserInputProps>(({
             </StyledView>
             {
                 (isError && helperText) &&
-                <StyledText variant={textVariant?.helperText} fs={helperTextFS} style={[STYLES.ERROR_HELPER_TEXT, styles?.helperText]}>{helperText}</StyledText>
+                <StyledText
+                    variant={textVariant?.helperText}
+                    fs={helperTextFS}
+                    style={[
+                        STYLES.ERROR_HELPER_TEXT,
+                        dynamicStyles.ERROR_HELPER_TEXT,
+                        styles?.helperText
+                    ]}
+                >
+                    {helperText}
+                </StyledText>
             }
         </StyledView>
     </>)
-});
+};
 export default UserInput;
 export type { UserInputProps };
 
-// const STYLES = StyleSheet.create({
-//     INPUT_CONT: {
-//         flexDirection: 'row',
-//         paddingHorizontal: horizontalScale(14),
-//         gap: horizontalScale(10),
-//     },
-//     INPUT: {
-//         padding: 0,
-//         flex: 1,
-//     },
-//     ERROR_HELPER_TEXT: {
-//         paddingHorizontal: 5
-//     }
-// });
+const STYLES = StyleSheet.create({
+    INPUT_CONT: {
+        flexDirection: 'row',
+        paddingHorizontal: horizontalScale(14),
+        gap: horizontalScale(10),
+    },
+    INPUT: {
+        padding: 0,
+        flex: 1,
+    },
+    ERROR_HELPER_TEXT: {
+        paddingHorizontal: 5
+    }
+});

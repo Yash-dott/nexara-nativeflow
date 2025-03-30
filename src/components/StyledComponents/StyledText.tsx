@@ -18,12 +18,10 @@ const StyledText: React.FC<StyledTextProps> = ({
     secondary,
     ...props
 }) => {
-
     const { colors, typography: { variantSizes } }: any = useTheme();
-    
-    return (<>
+    return (
         <Text
-            allowFontScaling={false}
+            // allowFontScaling={false}
             style={[{
                 fontSize: responsiveFontSize(fs ?? variantSizes[variant]),
                 fontFamily: ff ?? '',
@@ -37,7 +35,7 @@ const StyledText: React.FC<StyledTextProps> = ({
         >
             {children}
         </Text>
-    </>);
+    );
 };
 
 export default StyledText;

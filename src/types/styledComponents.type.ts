@@ -1,5 +1,6 @@
-import type { ColorValue, DimensionValue, StyleProp, TextProps, TextStyle, ViewProps, ViewStyle } from "react-native";
+import type { ColorValue, DimensionValue, StyleProp, TextProps, TextStyle, View, ViewProps, ViewStyle } from "react-native";
 import type { TypographyVariant } from "./common.type";
+import React from "react";
 
 export type StyledViewProps = ViewStyle & ViewProps & {
     /** 
@@ -51,6 +52,12 @@ export type StyledViewProps = ViewStyle & ViewProps & {
      * Custom styles for the view component. 
      */
     style?: StyleProp<ViewStyle>;
+
+     /**  
+     * A ref to access the underlying View component.  
+     * This can be used for measuring layout, animations, or imperative interactions.  
+     */
+    ref?: React.RefObject<View>
 };
 
 export type StyledTextProps = TextProps & {

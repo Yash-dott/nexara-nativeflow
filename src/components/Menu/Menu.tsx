@@ -1,7 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect, } from "react";
-import { StyleSheet, Pressable, View, ScrollView } from "react-native";
+import { StyleSheet, Pressable, View, ScrollView, Animated } from "react-native";
 import { StyledView } from "../StyledComponents";
-import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import Portal from "../Portal/Portal";
 import { positionCalculations } from "./calculations";
 import type { menuLayoutTypes, anchorLayoutTypes } from "./calculations";
@@ -19,20 +18,20 @@ const Menu: React.FC<MenuProps> = ({
     style,
     children
 }) => {
-
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const anchorLayoutRef = useRef<anchorLayoutTypes>({ pageY: 0, pageX: 0, height: 0, width: 0 });
     const menuLayoutRef = useRef<menuLayoutTypes>({ height: 0, width: 0 });
     const buttonRef = useRef<View | null>(null);
-    const scaleSharedValue = useSharedValue(0.5);
+    const animatedScaleRef = useRef(new Animated.Value(1)).current;
+
     const positions = (useCallback(() => (positionCalculations(anchorLayoutRef.current, menuLayoutRef.current, placement)), [menuLayoutRef, anchorLayoutRef, placement]))();
 
     useEffect(() => {
-        if ((disableBuiltInState && isOpen) || isVisible) {
-            scaleSharedValue.value = withTiming(1, { duration: 150 });
-        } else {
-            scaleSharedValue.value = 0;
-        }
+        Animated.timing(animatedScaleRef, {
+            toValue: (disableBuiltInState && isOpen) || isVisible ? 1 : 0,
+            duration: 150,
+            useNativeDriver: true,
+        }).start();
     }, [isOpen, isVisible]);
 
     const measureLayout = useCallback(() => {
@@ -63,14 +62,17 @@ const Menu: React.FC<MenuProps> = ({
 
     const renderChildren = (useCallback(() => {
         return (<ScrollView>
-            {React.Children?.toArray(children).map((e) => {
-                return React.cloneElement(e as React.ReactElement, {
-                    onPress: () => {
-                        (e as React.ReactElement)?.props?.onPress?.();
-                        onSelect?.((e as React.ReactElement)?.props?.name);
-                        onClose();
-                    }
-                });
+            {React.Children?.toArray(children).map((child) => {
+                if (React.isValidElement<{ onPress: () => void; name: string; }>(child)) {
+                    return React.cloneElement(child, {
+                        onPress: () => {
+                            (child)?.props?.onPress?.();
+                            onSelect?.((child)?.props?.name);
+                            onClose();
+                        }
+                    });
+                }
+                return null;
             })}
         </ScrollView>)
 
@@ -79,34 +81,15 @@ const Menu: React.FC<MenuProps> = ({
     const scale: number = disableBuiltInState ? Number(isOpen) : Number(isVisible);
     const pointerEvent = (isVisible && !disableBuiltInState) || (isOpen && disableBuiltInState) ? 'auto' : 'none';
 
-    const STYLES = StyleSheet.create({
-        CONTAINER: {
-            // width: horizontalScale(130),
-            shadowColor: "#000",
-            backgroundColor: '#fff',
-            shadowOffset: {
-                width: 0,
-                height: 2,
-            },
-            shadowOpacity: 0.23,
-            shadowRadius: 2.62,
-            elevation: 4,
-            position: 'absolute',
-            left: positions.left,
-            top: positions.top,
-            borderRadius: 5,
-            maxHeight: 400,
-            minWidth: horizontalScale(150),
-            paddingVertical: verticalScale(5)
-        }
-    });
+    const dynamicStyles = {
+        left: positions.left,
+        top: positions.top,
+    };
 
-    const menuAnimatedStyle = useAnimatedStyle(() => {
-        return {
-            transform: [{ scale: scaleSharedValue.value }],
-            opacity: scaleSharedValue.value
-        }
-    });
+    const menuAnimatedStyle = {
+        transform: [{ scale: animatedScaleRef }],
+        opacity: animatedScaleRef
+    };
 
     return (<>
 
@@ -119,7 +102,7 @@ const Menu: React.FC<MenuProps> = ({
                 onPress={onClose}>
                 <Animated.View
                     onStartShouldSetResponder={() => true}
-                    style={[STYLES.CONTAINER, menuAnimatedStyle, style]}
+                    style={[STYLES.MENU_CONT, dynamicStyles, menuAnimatedStyle, style]}
                     onLayout={({ nativeEvent: { layout: { height, width } } }) => menuLayoutRef.current = { width, height }}
                 >
                     {renderChildren}
@@ -127,13 +110,30 @@ const Menu: React.FC<MenuProps> = ({
             </Pressable>
         </Portal>
 
-        <StyledView alignItems='flex-start'>
-            <View ref={buttonRef} onLayout={measureLayout}>
-                {anchor && React.cloneElement(anchor, { onPress: onOpen })}
-            </View>
+        <StyledView alignItems='flex-start' ref={buttonRef} onLayout={measureLayout}>
+            {anchor && React.isValidElement<{ onPress: () => void }>(anchor) && React.cloneElement(anchor, { onPress: onOpen })}
         </StyledView>
 
     </>)
 }
 export default Menu;
 export type { MenuProps };
+
+const STYLES = StyleSheet.create({
+    MENU_CONT: {
+        shadowColor: "#000",
+        backgroundColor: '#fff',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.23,
+        shadowRadius: 2.62,
+        elevation: 4,
+        position: 'absolute',
+        borderRadius: 5,
+        maxHeight: 400,
+        minWidth: horizontalScale(150),
+        paddingVertical: verticalScale(5)
+    }
+});

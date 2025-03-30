@@ -1,4 +1,4 @@
-import type { StyleProp, TextInputProps, TextStyle, ViewStyle } from "react-native";
+import type { StyleProp, TextInput, TextInputProps, TextStyle, ViewStyle } from "react-native";
 import type { TypographyVariant, UserInputVariant } from "./common.type";
 
 export type UserInputProps = TextInputProps & {
@@ -92,4 +92,10 @@ export type UserInputProps = TextInputProps & {
         label?: StyleProp<TextStyle>;
         helperText?: StyleProp<TextStyle>;
     };
+
+    /**  
+        * A ref to access the underlying View component.  
+        * This can be used for measuring layout, animations, or imperative interactions.  
+    */
+    ref?: React.RefObject<TextInput>
 };

@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet } from "react-native";
 import type { ViewStyle, StyleProp } from "react-native";
 import { StyledView } from '../StyledComponents';
 import { useTheme } from '../../hooks';
@@ -20,15 +19,12 @@ const Divider: React.FC<DividerProps> = ({
 
     const theme = useTheme();
 
-    const STYLES = StyleSheet.create({
-        CONTAINER: {
-            borderWidth: thickness,
-            borderColor: color ?? theme?.colors.dividerColor
-        }
-    });
-
+    const dynamicStyles = {
+        borderWidth: thickness,
+        borderColor: color ?? theme?.colors.dividerColor
+    };
     return (<>
-        <StyledView style={[STYLES.CONTAINER, style]} />
+        <StyledView style={[dynamicStyles, style]} />
     </>);
 };
 export default Divider;
