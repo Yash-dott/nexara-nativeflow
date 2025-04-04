@@ -11,9 +11,6 @@ export type DialogProps = {
     /** Defines the dialog style variant */
     variant?: DialogVariant;
 
-    /** Controls the visibility of the dialog */
-    isVisible?: boolean;
-
     /** Defines the horizontal size of the dialog */
     size?: 'xs' | 'sm' | 'md' | 'lg' | 'full';
 
@@ -42,12 +39,13 @@ export type DialogBodyProps = {
     children?: ReactNode;
 };
 
-export type DialogDescriptionProps = {
-    /** Font size for the dialog description text */
-    fs?: number;
+export type DialogDescriptionProps = {    
 
     /** Variant of the typography to be applied to the text */
     textVariant?: TypographyVariant;
+    
+    /** Font size for the dialog description text */
+    fs?: number;
 
     /** Style for the container wrapping the dialog description */
     containerStyle?: StyleProp<ViewStyle>;

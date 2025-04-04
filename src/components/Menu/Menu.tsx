@@ -21,7 +21,7 @@ const Menu: React.FC<MenuProps> = ({
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const anchorLayoutRef = useRef<anchorLayoutTypes>({ pageY: 0, pageX: 0, height: 0, width: 0 });
     const menuLayoutRef = useRef<menuLayoutTypes>({ height: 0, width: 0 });
-    const buttonRef = useRef<View | null>(null);
+    const buttonRef = useRef<View>(null!);
     const animatedScaleRef = useRef(new Animated.Value(1)).current;
 
     const positions = (useCallback(() => (positionCalculations(anchorLayoutRef.current, menuLayoutRef.current, placement)), [menuLayoutRef, anchorLayoutRef, placement]))();

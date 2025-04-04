@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import type { StyleProp, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
+import type { JSX, ReactNode } from "react";
+import type { StyleProp, TextStyle, TouchableOpacityProps, View, ViewStyle } from "react-native";
 import type { TypographyVariant } from "./common.type";
 
 
@@ -52,6 +52,12 @@ export type MenuProps = {
      * Child components to be rendered inside the menu. 
      */
     children?: ReactNode;
+
+    /**  
+     * A ref to access the underlying View component.  
+     * This can be used for measuring layout, animations, or imperative interactions.  
+     */
+    ref?: React.RefObject<View | null>
 };
 
 

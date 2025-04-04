@@ -20,7 +20,7 @@ const DialogFoot: React.FC<props> = ({
         paddingHorizontal: moderateScale(variant === 'default' ? 16 : 25),
     };
     return (<>
-        <Stack.H  style={[STYLES.CONTAINER, dynamicStyles, containerStyle]}>
+        <Stack.H style={[STYLES.CONTAINER, dynamicStyles, containerStyle]}>
             {children}
         </Stack.H>
     </>);

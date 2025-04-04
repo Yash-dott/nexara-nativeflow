@@ -1,5 +1,6 @@
 import type { StyleProp, TextInput, TextInputProps, TextStyle, ViewStyle } from "react-native";
 import type { TypographyVariant, UserInputVariant } from "./common.type";
+import type { JSX } from "react";
 
 export type UserInputProps = TextInputProps & {
     /** 

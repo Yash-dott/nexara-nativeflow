@@ -1,11 +1,11 @@
-import type { PressableProps, StyleProp, TextStyle, ViewStyle } from "react-native";
+import type { StyleProp, TextStyle, TouchableOpacityProps, ViewStyle } from "react-native";
 import type { ButtonVariant, TypographyVariant } from "./common.type";
 import type { JSX } from "react";
 
 /**
  * @see https://rn-nativeflow-docs.onrender.com/docs/components/button
  */
-export type ButtonProps = PressableProps & {
+export type ButtonProps = TouchableOpacityProps & {
     /** Specifies the button style variant (e.g., 'contained', 'outlined') */
     variant?: ButtonVariant;
 

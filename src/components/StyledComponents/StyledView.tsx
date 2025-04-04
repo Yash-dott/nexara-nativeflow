@@ -18,7 +18,7 @@ const StyledView: React.FC<StyledViewProps> = ({
     ref,
     ...rest
 }) => {
-    
+
     const theme = useTheme(themeBg);
 
     return (
@@ -29,6 +29,7 @@ const StyledView: React.FC<StyledViewProps> = ({
                 alignItems: align,
                 flexWrap: fWrap,
                 backgroundColor: bg ?? (themeBg ? theme?.colors.secondary : 'transparent'),
+                // backgroundColor: bg ?? 'transparent',
                 height: h,
                 width: w,
             },

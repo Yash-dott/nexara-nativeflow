@@ -1,6 +1,6 @@
-import { NativeProvider, useTheme, Button, StyledView, Icon, LightTheme, DarkTheme, CheckBox, Dialog, DialogHead, DialogBody, DialogDescription, DialogFoot, PortalProvider, Divider, StyledText, UserInput, Switch, Progress, Link, Chip,  } from "@nexara/nativeflow";
+import { NativeProvider, useTheme, Button, StyledView, Icon, LightTheme, DarkTheme, CheckBox, Dialog, DialogHead, DialogBody, DialogFoot, PortalProvider, Divider, StyledText, UserInput, Switch, Progress, Link, Chip, } from "@nexara/nativeflow";
 import { ScrollView, TouchableOpacity } from "react-native";
-import { ArrowRight, Eye, PhoneCall, } from "lucide-react-native";
+// import { ArrowRight, Eye, PhoneCall, } from "lucide-react-native";
 import { useEffect, useRef, useState } from "react";
 import * as Font from 'expo-font';
 import type { DialogRefProps } from "../../src/types";
@@ -15,6 +15,12 @@ const Home = () => {
     // const [dialog2, setDialog2] = useState(false);
     const dialogRef1 = useRef<DialogRefProps>(null);
     const dialogRef2 = useRef<DialogRefProps>(null);
+
+
+    useEffect(() => {
+        console.log(dialogRef2)
+    }, [dialogRef2.current])
+
     useEffect(() => {
         const loadFonts = async () => {
             await Font.loadAsync({
@@ -25,14 +31,15 @@ const Home = () => {
         loadFonts();
     }, []);
 
-    useEffect(() => {
-        const setIntervalref = setInterval(() => {
-            setPercentage((prev) => prev < 100 ? prev + 10 : 0)
-        }, 1000);
-        return () => clearInterval(setIntervalref)
-    }, []);
+    // useEffect(() => {
+    //     const setIntervalref = setInterval(() => {
+    //         setPercentage((prev) => prev < 100 ? prev + 10 : 0)
+    //     }, 1000);
+    //     return () => clearInterval(setIntervalref)
+    // }, []);
 
     return (<>
+    
         <StyledView f={1} paddingHorizontal={20} paddingVertical={80} themeBg >
             <StyledView gap={25} w={"100%"}>
                 <StyledText variant='h1' primary tas>Signin</StyledText>
@@ -45,7 +52,7 @@ const Home = () => {
                             label="Mobile"
                             helperText="Please enter correct mobile number."
                             isError
-                            renderLeftIcon={<Icon renderIcon={<PhoneCall color='gray' />} />}
+                            // renderLeftIcon={<Icon renderIcon={<PhoneCall color='gray' />} />}
                             styles={{
                                 // input: { color: 'yellow' }
                             }}
@@ -55,7 +62,7 @@ const Home = () => {
                             label="Password"
                             secureTextEntry={isCheck}
                             disabled
-                            renderRightIcon={<TouchableOpacity onPress={() => setIsCheck((prev) => !prev)}><Icon renderIcon={<Eye color='gray' />} /></TouchableOpacity>}
+                            // renderRightIcon={<TouchableOpacity onPress={() => setIsCheck((prev) => !prev)}><Icon renderIcon={<Eye color='gray' />} /></TouchableOpacity>}
                         />
                         <Divider />
                         <UserInput
@@ -89,7 +96,7 @@ const Home = () => {
                         // onPress={() => inputRef?.current?.open()}
                         onPress={() => theme?.toggleThemeMode()}
                         // onPress={() => dialogRef1.current?.open()}
-                        renderRightIcon={<Icon renderIcon={<ArrowRight size={17} color={"green"} />} />}
+                        // renderRightIcon={<Icon renderIcon={<ArrowRight size={17} color={"green"} />} />}
                         title="Login"
                         br={10}
                         fullWidth
@@ -99,13 +106,13 @@ const Home = () => {
                         // onPress={() => inputRef?.current?.open()}
                         // onPress={() => setDialog2(true)}
                         onPress={() => dialogRef2.current?.open()}
-                        renderRightIcon={<Icon renderIcon={<ArrowRight size={17} color={"green"} />} />}
+                        // renderRightIcon={<Icon renderIcon={<ArrowRight size={17} color={"green"} />} />}
                         title="Login"
                         br={10}
                         fullWidth
                     // refj
                     />
-                        <Link title="Link" href="https://docs.nativebase.io/link" />
+                    <Link title="Link" href="https://docs.nativebase.io/link" />
 
                 </StyledView>
                 <Switch
@@ -124,12 +131,12 @@ const Home = () => {
                 size={70}
             /> */}
             </StyledView>
-
+            <Button type='round'/>
         </StyledView>
 
 
 
-        <Dialog ref={dialogRef1} size='lg' variant='classic' onClose={() => { }}>
+        {/* <Dialog ref={dialogRef1} size='lg' variant='classic' onClose={() => { }}>
             <DialogHead title='Invite your team' />
             <DialogBody>
                 <DialogDescription>
@@ -153,7 +160,7 @@ const Home = () => {
                     paddingH={14}
                 />
             </DialogFoot>
-        </Dialog>
+        </Dialog> */}
         <Dialog ref={dialogRef2} size='lg' variant='default' onClose={() => { }}>
             <DialogHead title='Invite your team' />
             <DialogBody >

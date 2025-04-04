@@ -5,8 +5,8 @@ import { StyledText } from '../StyledComponents';
 import type { DialogDescriptionProps } from '../../types';
 
 const DialogDescription: React.FC<DialogDescriptionProps> = ({
-    fs,
     textVariant = 'h5',
+    fs,
     containerStyle,
     textStyle,
     children,

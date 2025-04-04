@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { StyleSheet, View } from 'react-native';
 import type { TextInputProps, ViewStyle, TextStyle } from "react-native";
 import { responsiveFontSize, verticalScale, horizontalScale } from '../../helpers/ResponsiveCalculations';

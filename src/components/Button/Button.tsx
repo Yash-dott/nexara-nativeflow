@@ -1,12 +1,11 @@
 import React from 'react';
 import type { JSX } from 'react';
-import { StyleSheet } from "react-native";
-import type { ViewStyle } from 'react-native';
+import { StyleSheet, TouchableOpacity, type ViewStyle } from "react-native";
 import { verticalScale, horizontalScale } from "../../helpers/ResponsiveCalculations";
 import { StyledText, StyledView } from '../StyledComponents';
 import { useTheme } from '../../hooks';
 import { getButtonColors } from './utils';
-import TouchableRipple from '../TouchableRipple/TouchableRipple';
+// import TouchableRipple from '../TouchableRipple/TouchableRipple';
 import type { ButtonProps } from '../../types';
 
 
@@ -34,7 +33,7 @@ const Button: React.FC<ButtonProps> = ({
     buttonContainerStyle,
     textStyle,
     onPress,
-    ...props
+    ...rest
 }) => {
     const theme: any = useTheme();
 
@@ -83,13 +82,21 @@ const Button: React.FC<ButtonProps> = ({
     return (<>
         {type === 'flat' && (
             <StyledView style={[STYLES.FLAT_BTN_MAIN_CONT, dynamicStyles.FLAT_BTN_MAIN_CONT]}>
-                <TouchableRipple
+                <TouchableOpacity
+                    onPress={onPress}
+                    // rippleColor={rippleColor}
+                    disabled={disabled}
+                    // ref={ref}
+                    {...rest}
+                >
+
+                    {/* <TouchableRipple
                     onPress={onPress}
                     rippleColor={rippleColor}
                     disabled={disabled}
                     // ref={ref}
                     {...props}
-                >
+                > */}
                     <StyledView
                         style={[
                             STYLES.FLAT_BTN_INNER_CONT,
@@ -125,16 +132,18 @@ const Button: React.FC<ButtonProps> = ({
                             </StyledView>
                         )}
                     </StyledView>
-                </TouchableRipple>
+                    {/* </TouchableRipple> */}
+                </TouchableOpacity>
+
             </StyledView>
         )}
 
         {type === 'round' && (
             <StyledView style={STYLES.ROUND_BTN_MAIN_CONT} >
-                <TouchableRipple
+                <TouchableOpacity
                     onPress={onPress}
-                    rippleColor={rippleColor}
-                    {...props}
+                    // rippleColor={rippleColor}
+                    {...rest}
                 >
                     <StyledView
                         style={[
@@ -147,7 +156,7 @@ const Button: React.FC<ButtonProps> = ({
                     >
                         {renderIcon && cloneElement(renderIcon)}
                     </StyledView>
-                </TouchableRipple>
+                </TouchableOpacity>
             </StyledView>
         )}
     </>
@@ -176,7 +185,7 @@ const STYLES = StyleSheet.create({
     ROUND_BTN_MAIN_CONT: {
         overflow: 'hidden',
         borderRadius: verticalScale(100),
-        // alignSelf: 'flex-start',
+        alignSelf: 'flex-start',
     },
     ROUND_BTN_INNER_CONT: {
         alignItems: 'center',
