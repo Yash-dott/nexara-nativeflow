@@ -1,0 +1,221 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* Custom styles for modern Docusaurus theme */
+
+:root {
+  --ifm-color-primary: #6366f1;
+  --ifm-color-primary-dark: #4f46e5;
+  --ifm-color-primary-darker: #4338ca;
+  --ifm-color-primary-darkest: #3730a3;
+  --ifm-color-primary-light: #818cf8;
+  --ifm-color-primary-lighter: #a5b4fc;
+  --ifm-color-primary-lightest: #c7d2fe;
+  --ifm-code-font-size: 95%;
+  --ifm-background-color: #ffffff;
+  --ifm-background-surface-color: #f9fafb;
+  --ifm-navbar-background-color: #ffffff;
+  --ifm-footer-background-color: #ffffff;
+  --ifm-card-background-color: #ffffff;
+  --ifm-card-border-radius: 12px;
+  --ifm-transition-fast: 200ms;
+  --ifm-transition-slow: 400ms;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #fff;
+  --ifm-background-color: #111827;
+  --ifm-background-surface-color: #040404;
+  --ifm-navbar-background-color: #111827;
+  --ifm-footer-background-color: #1B1B1D;
+  --ifm-card-background-color: #ffffff0d;
+}
+
+
+/* Modern card styling */
+.card {
+  background: var(--ifm-card-background-color);
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform var(--ifm-transition-fast), box-shadow var(--ifm-transition-fast);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Smooth transitions */
+.navbar,
+.footer,
+.card,
+.button {
+  transition: all var(--ifm-transition-fast) ease-in-out;
+}
+
+/* Modern button styling */
+.button {
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all var(--ifm-transition-fast);
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Modern navbar styling */
+.navbar {
+  backdrop-filter: blur(10px);
+  background: rgba(var(--ifm-navbar-background-color), 0.8);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .navbar {
+  background: rgba(var(--ifm-navbar-background-color), 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Footer styling */
+.footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 50px 0px 10px 0px;
+}
+
+[data-theme='dark'] .footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+}
+
+html[data-theme='light'] .footer {
+  backdrop-filter: blur(10px);
+}
+
+.footer .container {
+  /* gap: 15px !important; */
+  display: flex;
+  flex-direction: column;
+}
+
+.footer .footer__title {
+  text-align: center;
+}
+
+.footer .footer__item {
+  display: flex;
+  justify-content: center;
+}
+
+/* Code block styling */
+pre {
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* Table styling */
+table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ifm-background-surface-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-primary-dark);
+}
+
+/* Animation classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive design improvements */
+@media screen and (max-width: 996px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+
+  .card {
+    margin: 0.5rem;
+  }
+}
+
+/* Expandable section styles */
+.expandable-section {
+  margin: 1rem 0;
+  border-radius: var(--ifm-card-border-radius);
+  background: var(--ifm-card-background-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.expandable-section-header {
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ifm-font-color-base);
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: background-color var(--ifm-transition-fast);
+}
+
+.expandable-section-header:hover {
+  background-color: var(--ifm-background-surface-color);
+}
+
+.expandable-section-content {
+  padding: 0 1rem 1rem;
+  overflow: hidden;
+}
+
+
+
+#expo-snack {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  height: 505px;
+  width: 100%
+}
