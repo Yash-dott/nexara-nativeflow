@@ -24,6 +24,31 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-video",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/ShareTechMono-Regular.ttf"
+          ],
+          "android": {
+            "fonts": [
+              {
+                "fontFamily": "ShareTechMono-Regular",
+                "fontDefinitions": [
+                  {
+                    "path": "./src/assets/fonts/ShareTechMono-Regular.ttf"
+              
+                  }
+                ]
+              }
+            ]
+          }
+          
+        }
+      ]
+    ]
   }
 }

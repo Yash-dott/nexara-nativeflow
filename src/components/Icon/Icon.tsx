@@ -18,11 +18,11 @@ const Icon: React.FC<IconProps> = ({
         return React.cloneElement(renderIcon as React.ReactElement<any>,
             {
                 ...renderIcon?.props,
-                size: verticalScale(renderIcon?.props?.size ?? 15),
+                size: verticalScale(renderIcon?.props?.size ?? 17),
                 color: color ?? (renderIcon?.props.color ?? theme?.colors.iconPrimary)
             }
         )
-    }, [color, theme]);
+    }, [color, theme, renderIcon.props]);
 
     return (<>
         {renderCallBackIcon}

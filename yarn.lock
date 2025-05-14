@@ -4207,16 +4207,17 @@ __metadata:
   dependencies:
     "@babel/core": ^7.20.0
     "@expo/metro-runtime": ~4.0.1
+    babel-plugin-module-resolver: ^5.0.2
     expo: ~52.0.37
     expo-font: ^13.0.4
     expo-status-bar: ~2.0.1
+    expo-video: ~2.0.6
+    lucide-react-native: ^0.510.0
     react: 18.3.1
     react-dom: 18.3.1
     react-native: 0.76.7
     react-native-builder-bob: ^0.36.0
-    react-native-flipper: ^0.273.0
     react-native-reanimated: ~3.16.1
-    react-native-svg: ^15.11.2
     react-native-web: ~0.19.13
   languageName: unknown
   linkType: soft
@@ -10491,6 +10492,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-video@npm:~2.0.6":
+  version: 2.0.6
+  resolution: "expo-video@npm:2.0.6"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: de938b7d157f4f1776d6d8039f4eea3fa1fda54602c019e89eef90ff20fb3cd104e65797979e4563edf6943498e4e4ae5f3fcecaf5068258baaf1cf64d2107c8
+  languageName: node
+  linkType: hard
+
 "expo@npm:~52.0.37":
   version: 52.0.44
   resolution: "expo@npm:52.0.44"
@@ -14531,6 +14543,17 @@ __metadata:
   version: 7.18.3
   resolution: "lru-cache@npm:7.18.3"
   checksum: e550d772384709deea3f141af34b6d4fa392e2e418c1498c078de0ee63670f1f46f5eee746e8ef7e69e1c895af0d4224e62ee33e66a543a14763b0f2e74c1356
+  languageName: node
+  linkType: hard
+
+"lucide-react-native@npm:^0.510.0":
+  version: 0.510.0
+  resolution: "lucide-react-native@npm:0.510.0"
+  peerDependencies:
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0
+    react-native: "*"
+    react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
+  checksum: 86d0f5239dbb9bb3afed631586435a002aeea12d3d84f9e661b6cd578b101a55c9a75a66c2be4e91b50eefce07787cf38a5d696c74d7b73e7403583b951aef58
   languageName: node
   linkType: hard
 
@@ -18915,16 +18938,6 @@ __metadata:
   bin:
     bob: bin/bob
   checksum: 2d47c039e3d6f90cd6a074cbe35c2dfc96868a73a6aee503fb981aace1c1ec2830517ce4910f5e368a558ed2f10302f60361cb1bf37ef341a913d125020bd2ee
-  languageName: node
-  linkType: hard
-
-"react-native-flipper@npm:^0.273.0":
-  version: 0.273.0
-  resolution: "react-native-flipper@npm:0.273.0"
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-native: ">0.62.0"
-  checksum: 63bb3c1880c6c433c114ae96ed9852b475a3c991725cd6b98e75e8b6129070a035691d69157fed1f10add2d82059e1c35a28d918f61bb12a4faf2a9a4db82bd6
   languageName: node
   linkType: hard
 

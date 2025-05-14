@@ -5,6 +5,7 @@ export type DialogVariant = 'classic' | 'default';
 export type ButtonVariant = 'outlined' | 'contained';
 export type TypographyVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'h7';
 export type themeModeTypes = 'light' | 'dark';
+export type scalingModeTypes = 'full' | 'partial';
 
 export type dialogSizesTypes = {
     xs: number,

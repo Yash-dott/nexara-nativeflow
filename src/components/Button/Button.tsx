@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import type { JSX } from 'react';
 import { StyleSheet, TouchableOpacity, type ViewStyle } from "react-native";
 import { verticalScale, horizontalScale } from "../../helpers/ResponsiveCalculations";
@@ -44,6 +44,9 @@ const Button: React.FC<ButtonProps> = ({
         strokeColor,
         disabled
     });
+
+    const STYLES = useMemo(Styles, []);
+
     const dynamicStyles = {
         BUTTON_CONT: {
             backgroundColor: backgroundColor,
@@ -72,7 +75,7 @@ const Button: React.FC<ButtonProps> = ({
     const cloneElement = (element: JSX.Element): JSX.Element | null => {
         if (React.isValidElement<{ color?: string }>(element)) {
             return React.cloneElement(element, {
-                color: buttonIconColor
+                color: element.props.color ?? buttonIconColor
             })
         }
         return null;
@@ -165,7 +168,7 @@ const Button: React.FC<ButtonProps> = ({
 export default Button;
 export type { ButtonProps };
 
-const STYLES = StyleSheet.create({
+const Styles = () => StyleSheet.create({
     BUTTON_CONT: {
         maxWidth: '100%',
     },

@@ -1,5 +1,6 @@
 import { Dimensions, PixelRatio } from 'react-native';
-// import { useResponsive } from '../hooks';
+import { getGlobalContext } from '../components/Provider/ContextManager';
+import type { scalingModeTypes } from '../types';
 
 
 const {
@@ -7,58 +8,62 @@ const {
     height: SCREEN_HEIGHT,
 } = Dimensions.get('window');
 
-// const isResponsive = useResponsive();
+// const GetScalingMode = () => getGlobalContext();
+// const scalingMode = useScalingMode();
+
 const isResponsive = true;
 const guidelineBaseWidth = 350;
 const guidelineBaseHeight = 680;
 const [shortDimension, longDimension] = SCREEN_WIDTH < SCREEN_HEIGHT ? [SCREEN_WIDTH, SCREEN_HEIGHT] : [SCREEN_HEIGHT, SCREEN_WIDTH];
 
-const scalingCache = new Map<'hScale' | 'vScale' | 'fs', object>();
+type scalingCacheKey = 'hScale' | 'vScale' | 'fs';
 
-export const fun = () => {
-    return scalingCache
-}
+const scalingCache = new Map<scalingCacheKey, object>();
+
+// export const fun = () => {
+//     return scalingCache
+// }
+
 const checkIsPhone = (size: number): number => {
     if (SCREEN_WIDTH <= 430 && SCREEN_WIDTH >= 375) {
         return size;
     }
     return 0;
 }
-export const horizontalScale = (size: number): number => {
+
+const scale = (size: number, cacheKey: scalingCacheKey, mode: scalingModeTypes) => {
     if (checkIsPhone(size)) {
         return size;
     }
-    const hScaleCache: any = scalingCache.get('hScale') || {};
-    if (hScaleCache?.[size]) {
-        return hScaleCache?.[size];
+    const cacheScaleValue: any = scalingCache.get(cacheKey) || {};
+    let finalSize;
+    if (cacheScaleValue?.[size]) {
+        return cacheScaleValue?.[size];
     }
-    const slowDownRate = SCREEN_WIDTH < 375 ? 2 : 0.40;
-    let scale = (shortDimension / guidelineBaseHeight);
-    scale = 1 + (scale - 1) * slowDownRate;
-    let adjustedSize = size * Math.max(scale, 0.80);
-    const finalSize = Math.floor(PixelRatio.roundToNearestPixel(adjustedSize));
-    hScaleCache[size] = finalSize;
-    scalingCache.set('hScale', hScaleCache)
+    if (mode === 'partial') {
+        const slowDownRate = SCREEN_WIDTH < 375 ? 2 : 0.40;
+        let scale = ((cacheKey === 'hScale' ? shortDimension : longDimension) / guidelineBaseHeight);
+        scale = 1 + (scale - 1) * slowDownRate;
+        let adjustedSize = size * Math.max(scale, 0.80);
+        finalSize = Math.floor(PixelRatio.roundToNearestPixel(adjustedSize));
+    } else {
+        const baseScaleFactor = (cacheKey === 'hScale' ? (shortDimension / guidelineBaseWidth) : (longDimension / guidelineBaseHeight));
+        const clampedScaleFactor = Math.max(0.9, Math.min(baseScaleFactor, 1.2));
+        finalSize = Math.round(PixelRatio.roundToNearestPixel(size * clampedScaleFactor))
+    }
+    cacheScaleValue[size] = finalSize;
+    scalingCache.set(cacheKey, cacheScaleValue);
     return finalSize;
 }
 
+export const horizontalScale = (size: number): number => {
+    const scalingMode = getGlobalContext().scaling.mode
+    return scale(size, 'hScale', scalingMode);
+}
 
 export const verticalScale = (size: number): number => {
-    if (checkIsPhone(size)) {
-        return size;
-    }
-    const vScaleCache: any = scalingCache.get('vScale') || {};
-    if (vScaleCache?.[size]) {
-        return vScaleCache?.[size];
-    }
-    const slowDownRate = SCREEN_WIDTH < 375 ? 2 : 0.40;
-    let scale = (longDimension / guidelineBaseHeight);
-    scale = 1 + (scale - 1) * slowDownRate;
-    let adjustedSize = size * Math.max(scale, 0.80);
-    const finalSize = Math.floor(PixelRatio.roundToNearestPixel(adjustedSize));
-    vScaleCache[size] = finalSize;
-    scalingCache.set('vScale', vScaleCache)
-    return finalSize;
+    const scalingMode = getGlobalContext().scaling.mode
+    return scale(size, 'vScale', scalingMode);
 }
 
 

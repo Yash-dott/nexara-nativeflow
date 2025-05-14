@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Context } from '../components/Provider/NativeProvider';
 
-const useResponsive = () => useContext(Context)?.isResponsive;
+const useScalingMode = () => useContext(Context)?.scaling;
 
-export default useResponsive;
+export default useScalingMode;

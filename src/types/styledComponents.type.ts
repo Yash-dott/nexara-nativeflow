@@ -53,14 +53,14 @@ export type StyledViewProps = ViewStyle & ViewProps & {
      */
     style?: StyleProp<ViewStyle>;
 
-     /**  
-     * A ref to access the underlying View component.  
-     * This can be used for measuring layout, animations, or imperative interactions.  
-     */
+    /**  
+    * A ref to access the underlying View component.  
+    * This can be used for measuring layout, animations, or imperative interactions.  
+    */
     ref?: React.RefObject<View>
 };
 
-export type StyledTextProps = TextProps & {
+export type StyledTextProps = TextProps & TextStyle & {
     /** 
      * Defines the typography variant for the text. 
      */

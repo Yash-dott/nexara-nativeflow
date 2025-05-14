@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { forwardRef, useMemo } from 'react';
 import { TextInput, StyleSheet, type ViewStyle } from 'react-native';
 import type { TextStyle } from 'react-native';
 import { responsiveFontSize, verticalScale, horizontalScale } from '../../helpers/ResponsiveCalculations';
@@ -7,7 +7,7 @@ import { StyledText, StyledView } from '../StyledComponents';
 import type { UserInputProps } from '../../types';
 import generateColors from './generateColors';
 
-const UserInput: React.FC<UserInputProps> = ({
+const UserInput = forwardRef<TextInput, UserInputProps>(({
     variant = 'standard',
     label,
     bg,
@@ -16,6 +16,7 @@ const UserInput: React.FC<UserInputProps> = ({
     labelColor,
     textVariant = {
         label: 'h5',
+        inputText: 'h5',
         helperText: 'h6',
     },
     inputTextColor,
@@ -33,11 +34,12 @@ const UserInput: React.FC<UserInputProps> = ({
     renderLeftIcon,
     renderRightIcon,
     styles,
-    ref,
     ...rest
-}) => {
+}, ref) => {
 
     const theme: any = useTheme();
+
+    const STYLES = useMemo(Styles, []);
 
     const {
         computedCursorColor,
@@ -58,7 +60,8 @@ const UserInput: React.FC<UserInputProps> = ({
         },
         INPUT: {
             color: disabled ? theme.colors.textDisable : isError ? theme.colors.error : inputTextColor ?? theme.colors.textPrimary,
-            fontSize: responsiveFontSize(inputFs),
+            //@ts-ignore
+            fontSize: responsiveFontSize(theme.typography.variantSizes[textVariant.inputText] ?? inputFs),
             textAlignVertical: (multiline ? 'top' : 'center') as TextStyle['textAlignVertical'],
             minHeight: multiline ? 100 : undefined,
             maxHeight: multiline ? 150 : undefined,
@@ -110,11 +113,11 @@ const UserInput: React.FC<UserInputProps> = ({
             }
         </StyledView>
     </>)
-};
+});
 export default UserInput;
 export type { UserInputProps };
 
-const STYLES = StyleSheet.create({
+const Styles = () => StyleSheet.create({
     INPUT_CONT: {
         flexDirection: 'row',
         paddingHorizontal: horizontalScale(14),

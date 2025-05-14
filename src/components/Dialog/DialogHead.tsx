@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { moderateScale } from '../../helpers/ResponsiveCalculations';
 import { X } from '../../assets/svg';
@@ -19,6 +19,7 @@ const DialogHead: React.FC<props> = ({
     textStyle,
     children
 }) => {
+    const STYLES = useMemo(Styles, []);
     const dynamicStyles = {
         borderBottomWidth: variant == 'default' ? 0.7 : 0,
         padding: moderateScale(variant === 'default' ? 16 : 25),
@@ -40,7 +41,7 @@ export default DialogHead;
 export type { DialogHeadProps };
 
 
-const STYLES = StyleSheet.create({
+const Styles = () => StyleSheet.create({
     CONTAINER: {
         borderColor: '#d4d4d4',
         paddingBottom: moderateScale(16),

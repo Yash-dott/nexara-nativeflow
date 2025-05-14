@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import Stack from '../Stack';
 import { moderateScale } from '../../helpers/ResponsiveCalculations';
@@ -14,6 +14,7 @@ const DialogFoot: React.FC<props> = ({
     containerStyle,
     children
 }) => {
+    const STYLES = useMemo(Styles, []);
     const dynamicStyles = {
         borderTopWidth: variant === 'default' ? 0.7 : 0,
         padding: moderateScale(variant === 'default' ? 16 : 20),
@@ -28,7 +29,7 @@ const DialogFoot: React.FC<props> = ({
 export default DialogFoot;
 export type { DialogFootProps };
 
-const STYLES = StyleSheet.create({
+const Styles = () => StyleSheet.create({
     CONTAINER: {
         borderColor: '#d4d4d4',
         justifyContent: 'flex-end',

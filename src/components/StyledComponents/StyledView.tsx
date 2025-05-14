@@ -1,10 +1,10 @@
-import React from 'react';
+import { forwardRef } from 'react';
 import { View } from 'react-native';
 import { useTheme } from '../../hooks';
 import type { StyledViewProps } from '../../types';
 
 
-const StyledView: React.FC<StyledViewProps> = ({
+const StyledView = forwardRef<View, StyledViewProps>(({
     f,
     justify,
     align,
@@ -15,9 +15,8 @@ const StyledView: React.FC<StyledViewProps> = ({
     w,
     children,
     style,
-    ref,
     ...rest
-}) => {
+}, ref) => {
 
     const theme = useTheme(themeBg);
 
@@ -34,13 +33,13 @@ const StyledView: React.FC<StyledViewProps> = ({
             },
                 style
             ]}
-            ref={ref}
             {...rest}
+            ref={ref}
         >
             {children}
         </View>
     );
-};
+});
 
 export default StyledView;
 export type { StyledViewProps };

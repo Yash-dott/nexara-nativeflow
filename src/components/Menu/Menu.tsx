@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect, } from "react";
+import React, { useState, useRef, useCallback, useEffect, useMemo, } from "react";
 import { StyleSheet, Pressable, View, ScrollView, Animated } from "react-native";
 import { StyledView } from "../StyledComponents";
 import Portal from "../Portal/Portal";
@@ -25,6 +25,7 @@ const Menu: React.FC<MenuProps> = ({
     const animatedScaleRef = useRef(new Animated.Value(1)).current;
 
     const positions = (useCallback(() => (positionCalculations(anchorLayoutRef.current, menuLayoutRef.current, placement)), [menuLayoutRef, anchorLayoutRef, placement]))();
+    const STYLES = useMemo(Styles, []);
 
     useEffect(() => {
         Animated.timing(animatedScaleRef, {
@@ -119,7 +120,7 @@ const Menu: React.FC<MenuProps> = ({
 export default Menu;
 export type { MenuProps };
 
-const STYLES = StyleSheet.create({
+const Styles = () => StyleSheet.create({
     MENU_CONT: {
         shadowColor: "#000",
         backgroundColor: '#fff',

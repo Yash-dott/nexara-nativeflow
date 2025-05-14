@@ -34,6 +34,7 @@ export type UserInputProps = TextInputProps & {
     textVariant?: {
         label?: TypographyVariant;
         helperText?: TypographyVariant;
+        inputText?: TypographyVariant;
     };
 
     /** Color of the text inside the input field. */

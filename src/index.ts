@@ -1,11 +1,12 @@
+export { default as NativeProvider } from './components/Provider/NativeProvider';
+export { horizontalScale, moderateScale, moderateVerticalScale, verticalScale, responsiveFontSize } from './helpers/ResponsiveCalculations';
 export { default as Header } from './components/Header/Header';
 export { default as Chip } from './components/Chip/Chip';
 export { default as Button } from './components/Button/Button';
+
 export { default as Stack } from './components/Stack';
 export { StyledText, StyledView } from './components/StyledComponents';
 export { default as UserInput } from './components/UserInput/UserInput';
-export { default as NativeProvider } from './components/Provider/NativeProvider';
-export { horizontalScale, moderateScale, moderateVerticalScale, verticalScale } from './helpers/ResponsiveCalculations';
 export { default as Grid } from './components/Grid/Grid';
 export { default as Progress } from './components/Progress/Progress';
 export { default as Slider } from './components/Slider/Slider';

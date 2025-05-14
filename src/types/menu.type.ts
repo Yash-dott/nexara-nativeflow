@@ -1,6 +1,7 @@
 import type { JSX, ReactNode } from "react";
 import type { StyleProp, TextStyle, TouchableOpacityProps, View, ViewStyle } from "react-native";
 import type { TypographyVariant } from "./common.type";
+import type { StyledTextProps } from "./styledComponents.type";
 
 
 export type MenuProps = {
@@ -93,7 +94,7 @@ export type MenuItemProps = TouchableOpacityProps & {
     children?: ReactNode;
 };
 
-export type MenuItemLabelProps = TextStyle & {
+export type MenuItemLabelProps = StyledTextProps & {
     /** 
      * Font size of the label text. 
      */

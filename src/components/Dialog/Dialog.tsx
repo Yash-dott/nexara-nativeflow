@@ -12,6 +12,7 @@ const Dialog = forwardRef<DialogRefProps, DialogProps>(({
     size = 'lg',
     fullScreen,
     backdropColor = 'rgba(0, 0, 0, 0.5)',
+    // backdropColor = 'red',
     // animationDuration = 800,
     onClose,
     containerStyle,

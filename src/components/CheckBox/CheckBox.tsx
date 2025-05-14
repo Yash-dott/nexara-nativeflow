@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback, Animated, type ViewStyle } from "react-native";
 import { StyledText, StyledView } from "../StyledComponents";
 import { useTheme } from "../../hooks";
@@ -32,6 +32,8 @@ const CheckBox: React.FC<CheckBoxProps> = ({
         setIsCheckboxChecked(defaultValue);
     }, [defaultValue]);
 
+    const STYLES = useMemo(Styles, []);
+    
     const scaleVal = useRef(new Animated.Value(1)).current;
     const { colors }: any = useTheme();
     activeBgColor = disabled ? colors.disable : activeBgColor ?? colors.primary;
@@ -99,7 +101,7 @@ const CheckBox: React.FC<CheckBoxProps> = ({
 export default CheckBox;
 export type { CheckBoxProps };
 
-const STYLES = StyleSheet.create({
+const Styles = () => StyleSheet.create({
     CONTAINER: {
         flexDirection: 'row',
         gap: horizontalScale(10),

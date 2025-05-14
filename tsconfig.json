@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
     "rootDir": ".",
+    // "baseUrl": "./src",
     "paths": {
-      "@nexara/nativeflow": ["./src/index"]
+      "@nexara/nativeflow": ["./src/index.ts"],
+      // "@nexara/nativeflow/*": ["./components/*"],
+      // "*": ["./*"]
     },
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
