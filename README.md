@@ -1,37 +1,33 @@
 # @nexara/nativeflow
 
-Beautiful, responsive, and customizable UI components for React Native – built for performance and seamless experiences.
+## 🚀 Features 🚀
 
-## Installation
+✔️ Stunning, modern UI components 🎨✨\
+✔️ Fully customizable with props and theming 🎧🎨\
+✔️ Blazing-fast ⚡ performance\
+✔️ Strong type safety with TypeScript 🛡️📚\
+✔️ Smooth animations 🎭🌀
 
+---
 
+## 📦 Installation 📦
+
+### Step 1: Install the packages
+
+#### Install @nexara/nativeflow
 ```sh
 npm install @nexara/nativeflow
 ```
 
+## 📚 Documentation 📚
 
-## Usage
-
-
-```js
-import { multiply } from '@nexara/nativeflow';
-
-// ...
-
-const result = await multiply(3, 7);
-```
-
-
-## Contributing
-
-- [Development workflow](CONTRIBUTING.md#development-workflow)
-- [Sending a pull request](CONTRIBUTING.md#sending-a-pull-request)
-- [Code of conduct](CODE_OF_CONDUCT.md)
-
-## License
-
-MIT
+Check out the **[📝 full documentation](https://rn-nativeflow-docs.onrender.com/docs/getting-started)** for more details on usage, customization, and API references.
 
 ---
 
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+## 📝 License 📝
+
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+
+---
+

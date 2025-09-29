@@ -3,7 +3,6 @@
     "name": "example",
     "slug": "example",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
@@ -21,11 +20,35 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
       "package": "nexara.nativeflow.example"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-video",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./src/assets/fonts/ShareTechMono-Regular.ttf"
+          ],
+          "android": {
+            "fonts": [
+              {
+                "fontFamily": "ShareTechMono-Regular",
+                "fontDefinitions": [
+                  {
+                    "path": "./src/assets/fonts/ShareTechMono-Regular.ttf"
+              
+                  }
+                ]
+              }
+            ]
+          }
+          
+        }
+      ]
+    ]
   }
 }
