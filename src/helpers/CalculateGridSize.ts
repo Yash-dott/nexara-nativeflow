@@ -7,7 +7,7 @@ interface DeviceCategory {
 
 const getGridValue = (propsSizeObj: Record<string, number>, windowWidth: number | undefined) => {
     const propsSizeArray: [string, number][] = Object.entries(propsSizeObj);
-    let screenSizeCategory: DeviceCategory = deviceScreenSizeCategory(windowWidth);
+    const screenSizeCategory: DeviceCategory = deviceScreenSizeCategory(windowWidth);
     let gridValue: number = 0;
     if (!propsSizeObj[screenSizeCategory.size]) {
         const arrIndex = propsSizeArray.findIndex(([size]) => size === screenSizeCategory.size);

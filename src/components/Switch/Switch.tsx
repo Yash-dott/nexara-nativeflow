@@ -19,7 +19,7 @@ const Switch: FC<SwitchProps> = ({
     const { colors }: any = useTheme();
     const switchColor = disabled ? colors.states.disabled : color ?? colors.brand.primary;
     const disabledAndInActiveTrackColor = colors.palette.natural[200];
-    const generateActiveTrackColor =  Color(colors.brand.primary).lighten(0).alpha(0.3).rgb().string();
+    const generateActiveTrackColor = Color(colors.brand.primary).lighten(0).alpha(0.3).rgb().string();
 
     return (<>
         <NativeSwitch

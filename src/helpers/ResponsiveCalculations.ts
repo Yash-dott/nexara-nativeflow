@@ -18,7 +18,10 @@ type scalingCacheKey = 'hScale' | 'vScale' | 'fs';
 const scalingCache = new Map<scalingCacheKey, object>();
 
 const checkIsPhone = (size: number): number => {
-    if (SCREEN_WIDTH <= 430 && SCREEN_WIDTH >= 375) {
+    // if (SCREEN_WIDTH <= 430 && SCREEN_WIDTH >= 375) {
+    //     return size;
+    // }
+     if (SCREEN_WIDTH <= 430) {
         return size;
     }
     return 0;

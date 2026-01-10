@@ -1,6 +1,6 @@
 {
   "name": "@nexara/nativeflow",
-  "version": "0.1.7",
+  "version": "0.1.9",
   "description": "Beautiful, responsive, and customizable UI components for React Native – built for performance and seamless experiences.",
   "source": "./src/index.ts",
   "main": "./lib/commonjs/index.js",
@@ -38,7 +38,7 @@
     "!**/.*"
   ],
   "scripts": {
-    "example": "yarn workspace @nexara/nativeflow-example",
+    "example": "yarn workspace @nexara/nativeflow-example start",
     "test": "jest",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
