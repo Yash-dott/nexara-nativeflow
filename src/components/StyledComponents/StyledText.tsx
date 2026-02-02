@@ -34,7 +34,7 @@ const StyledText: FC<StyledTextProps> = ({
                 fontSize: responsiveFontSize(fs ?? typographyScales[fScale]),
                 fontFamily: ff ?? '',
                 textAlign: tas ? 'center' : 'auto',
-                fontWeight: fw ?? 'normal',
+                ...(fw ? { fontWeight: fw } : {}),
                 color: color ?? (themeColor && colors.brand.primary || getVariantColor()),
             },
                 style,

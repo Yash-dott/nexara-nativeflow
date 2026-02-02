@@ -5,7 +5,7 @@ import { verticalScale } from '../../helpers';
 import type { SurfaceProps } from '../../types';
 
 const Surface: FC<SurfaceProps> = ({
-    variant = 'elevated',
+    variant = 'default',
     padding = 10,
     br = 5,
     children,
@@ -13,7 +13,7 @@ const Surface: FC<SurfaceProps> = ({
 }) => {
 
     const { colors }: any = useTheme();
-    const styles = variant === 'elevated' ? { boxShadow: colors.elevation.level1 } : { borderColor: colors.border.default, borderWidth: 0.5 };
+    const styles = variant === 'elevated' ? { boxShadow: colors.elevation.level1 } : variant === 'outlined' ? { borderColor: colors.border.default, borderWidth: 0.5 } : {};
 
     return (<>
         <StyledView

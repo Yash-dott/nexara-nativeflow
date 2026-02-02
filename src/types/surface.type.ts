@@ -12,7 +12,7 @@ export type SurfaceProps = StyledViewProps & {
     br?: number;
 
     /** Style variant of the surface: 'elevated' adds shadow, 'outlined' adds border */
-    variant?: 'elevated' | 'outlined';
+    variant?: 'elevated' | 'outlined' | 'default';
 
     /** Child components to be rendered inside the surface */
     children?: ReactNode;

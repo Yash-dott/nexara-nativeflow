@@ -4,13 +4,15 @@ import type { ButtonVariant, ThemeTypes } from "../../types";
 const getButtonBorderColor = ({
     theme,
     strokeColor,
-    disabled
+    disabled,
+    loading
 }: {
     theme: ThemeTypes;
     strokeColor: string | undefined;
     disabled: boolean;
+    loading: boolean;
 }) => {
-    if (disabled) {
+    if (disabled || loading) {
         return theme.colors.border.default;
     }
     if (strokeColor) {
@@ -24,15 +26,17 @@ const getButtonTextColor = ({
     theme,
     checkVariant,
     titleColor,
-    disabled
+    disabled,
+    loading
 }: {
     theme: ThemeTypes;
     checkVariant: (variant: ButtonVariant) => boolean;
     titleColor: string | undefined;
     disabled: boolean;
+    loading: boolean;
 }) => {
 
-    if (disabled) {
+    if (disabled || loading) {
         return theme.colors.typography.disabled;
     }
     else if (titleColor) {
@@ -48,15 +52,17 @@ const getButtonBackgroundColor = ({
     theme,
     checkVariant,
     bg,
-    disabled
+    disabled,
+    loading
 }: {
     theme: ThemeTypes;
     checkVariant: (variant: ButtonVariant) => boolean;
     bg: string | undefined;
     disabled: boolean;
+    loading: boolean;
 }) => {
 
-    if (disabled) {
+    if (disabled || loading) {
         return theme.colors.states.disabled;
     }
     else if (bg) {
@@ -95,7 +101,8 @@ const getButtonColors = ({
     bg,
     titleColor,
     strokeColor,
-    disabled
+    disabled,
+    loading
 }: {
     theme: ThemeTypes;
     variant: ButtonVariant;
@@ -103,6 +110,7 @@ const getButtonColors = ({
     titleColor: string | undefined;
     strokeColor: string | undefined;
     disabled: boolean;
+    loading: boolean;
 }) => {
 
     const checkVariant = (variantToCompare: ButtonVariant) => {
@@ -112,18 +120,21 @@ const getButtonColors = ({
         theme,
         checkVariant,
         bg,
-        disabled
+        disabled,
+        loading
     });
     const buttonTextColor = getButtonTextColor({
         theme,
         checkVariant,
         titleColor,
-        disabled
+        disabled,
+        loading
     });
     const buttonBorderColor = getButtonBorderColor({
         theme,
         strokeColor,
-        disabled
+        disabled,
+        loading
     });
     // const buttonIconColor = getButtonIconColor({
     //     checkVariant,

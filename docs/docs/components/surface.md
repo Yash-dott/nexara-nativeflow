@@ -31,9 +31,10 @@ export default Component;
 ```
 
 
-| Prop     | Type                     | Default      | Description                                                                                  |
-|----------|--------------------------|--------------|----------------------------------------------------------------------------------------------|
-| `padding`| `number`                 | `10`         | Sets uniform padding inside the surface container.                                           |
-| `br`     | `number`                 | `5`          | Sets the border radius of the surface container.                                             |
-| `variant`| `'outlined'` | `'elevated'` | Determines the visual style: `'elevated'` applies shadow, `'outlined'` applies border.      |
-| `children` | `ReactNode`            |              | Components or elements rendered inside the surface.                                          |
+
+| Prop       | Type                                   | Default     | Description |
+|------------|----------------------------------------|-------------|-------------|
+| `padding`  | `number`                               | `10`        | Sets uniform padding inside the surface container. |
+| `br`       | `number`                               | `5`         | Sets the border radius of the surface container. |
+| `variant`  | `'default' \| 'elevated' \| 'outlined'` | `'default'` | Determines the visual style: `elevated` adds shadow, `outlined` adds border, `default` applies none. |
+| `children` | `ReactNode`                            |             | Components or elements rendered inside the surface. |

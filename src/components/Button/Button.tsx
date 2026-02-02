@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import type { FC, JSX } from 'react';
-import { StyleSheet, TouchableOpacity, type ViewStyle } from "react-native";
+import { ActivityIndicator, StyleSheet, TouchableOpacity, type ViewStyle } from "react-native";
 import { verticalScale, horizontalScale } from "../../helpers/ResponsiveCalculations";
 import { StyledText, StyledView } from '../StyledComponents';
 import { useTheme } from '../../hooks';
@@ -29,6 +29,7 @@ const Button: FC<ButtonProps> = ({
     renderLeftIcon,
     renderRightIcon,
     disabled = false,
+    loading = false,
     containerStyle,
     titleStyle,
     onPress,
@@ -43,7 +44,8 @@ const Button: FC<ButtonProps> = ({
         bg,
         titleColor,
         strokeColor,
-        disabled
+        disabled,
+        loading
     });
 
     const STYLES = useMemo(customStyles, []);
@@ -88,7 +90,7 @@ const Button: FC<ButtonProps> = ({
                 <TouchableOpacity
                     onPress={onPress}
                     // rippleColor={rippleColor}
-                    disabled={disabled}
+                    disabled={disabled || loading}
                     // ref={ref}
                     {...rest}
                 >
@@ -106,40 +108,49 @@ const Button: FC<ButtonProps> = ({
                             STYLES.BUTTON_CONT,
                             dynamicStyles.FLAT_BTN_INNER_CONT,
                             dynamicStyles.BUTTON_CONT,
-                            containerStyle
-                        ]}>
+                            containerStyle,
+                        ]}
+                    >
                         {(renderLeftIcon || (fullWidth && renderRightIcon)) && (
                             <StyledView f={fullWidth ? 1 : undefined}>
                                 {renderLeftIcon && cloneElement(renderLeftIcon)}
                             </StyledView>
                         )}
 
-                        <StyledView
-                            flexShrink={1}
-                            f={fullWidth ? 8 : undefined}
-                        >
-                            {
-                                (title ?? children) ?
-                                <StyledText numberOfLines={1} fs={fs} fScale={fScale}
-                                    style={[
-                                        STYLES.BUTTON_TEXT,
-                                        dynamicStyles.BUTTON_TEXT,
-                                        titleStyle,
-                                    ]}
-                                >
-                                    {title ?? children}
-                                </StyledText>
-                                :
-                                (renderIcon && cloneElement(renderIcon))
-                            }
+                        <StyledView flexShrink={1} f={fullWidth ? 8 : undefined}>
+                            {!loading ? (
+                                (title ?? children) ? (
+                                    <StyledText
+                                        numberOfLines={1}
+                                        fs={fs}
+                                        fScale={fScale}
+                                        style={[
+                                            STYLES.BUTTON_TEXT,
+                                            dynamicStyles.BUTTON_TEXT,
+                                            titleStyle,
+                                        ]}
+                                    >
+                                        {title ?? children}
+                                    </StyledText>
+                                ) : (
+                                    renderIcon && cloneElement(renderIcon)
+                                )
+                            ) : (
+                                <ActivityIndicator
+                                    color={dynamicStyles.BUTTON_TEXT.color}
+                                    size="small"
+                                />
+                            )}
                         </StyledView>
 
                         {(renderRightIcon || (fullWidth && renderLeftIcon)) && (
-                            <StyledView alignItems='flex-end' f={fullWidth ? 1 : undefined}>
+                            <StyledView alignItems="flex-end" f={fullWidth ? 1 : undefined}>
                                 {renderRightIcon && cloneElement(renderRightIcon)}
                             </StyledView>
                         )}
                     </StyledView>
+
+
                     {/* </TouchableRipple> */}
                 </TouchableOpacity>
 

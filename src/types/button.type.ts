@@ -66,6 +66,9 @@ export type ButtonProps = TouchableOpacityProps & {
     /** Disables the button when true */
     disabled?: boolean;
 
+    /** Shows loading state when true */
+    loading?: boolean;
+
     /** Custom styles for the button container */
     containerStyle?: StyleProp<ViewStyle>;
 
