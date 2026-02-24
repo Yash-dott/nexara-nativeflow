@@ -15,7 +15,7 @@ const Progress: FC<ProgressProps> = ({
 
     const animatedWidth = useRef(new Animated.Value(value)).current;
     const theme = useTheme();
-    trackColor  = theme?.colors.palette.natural[200];
+    trackColor  = trackColor ?? theme?.colors.palette.natural[200];
 
     useEffect(() => {
         Animated.timing(animatedWidth, {
