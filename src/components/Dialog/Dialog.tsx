@@ -14,6 +14,7 @@ const Dialog = forwardRef<DialogRefProps, DialogProps>(({
     size = 'lg',
     fullScreen,
     backdropColor,
+    dialogKey,
     onClose,
     containerStyle,
     children,
@@ -87,7 +88,7 @@ const Dialog = forwardRef<DialogRefProps, DialogProps>(({
     };
 
     return (<>
-        <Portal name='dialog'>
+        <Portal name={dialogKey ?? 'dialog'}>
             <Animated.View
                 style={[STYLES.BACKDROP_CONT, backdropAnimatedStyles]}
                 pointerEvents={dialogVisible ? 'auto' : 'none'}

@@ -10,12 +10,14 @@ interface Element {
 const PortalProvider: React.FC<PortalProviderProps> = ({ children }) => {
 
     const [components, setComponents] = useState<Record<string, React.ReactNode>>({});
+
     const addComponent = useCallback(({ name, component }: Element) => {
         setComponents(prevComponents => ({
             ...prevComponents,
             [name]: component
         }));
     },[]);
+    
     const removeComponent = useCallback((name: string) => {
         setComponents(prevComponents => {
             const newComponents = { ...prevComponents };

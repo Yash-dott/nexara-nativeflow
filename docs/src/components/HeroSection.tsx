@@ -20,7 +20,7 @@ const HeroSection: FC = () => {
                     className={styles['hero-badge']}
                 >
                     <span className={styles['badge-icon']}>✨</span>
-                    Pre Release v0.1.12
+                    Pre Release v0.1.13
                     <span className={styles['badge-icon']}>✨</span>
                 </motion.div>
 

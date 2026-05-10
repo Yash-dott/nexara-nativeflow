@@ -21,6 +21,8 @@ export type DialogProps = {
     /** Background color of the backdrop */
     backdropColor?: string;
 
+    dialogKey?: string;
+
     /** Callback function triggered when the dialog is closed */
     onClose?: () => void;
 

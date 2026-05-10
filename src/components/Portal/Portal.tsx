@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import PortalContext from "./PortalContext";
 
 interface PortalProps {
@@ -7,12 +7,15 @@ interface PortalProps {
 }
 const Portal: React.FC<PortalProps> = ({ children, name }) => {
     const { addComponent, removeComponent } = useContext(PortalContext);
+    const uniqueId = useRef(name ?? `portal_${Math.random() * 50}`).current;
 
     useEffect(() => {
-        const uniqueId = name ?? `${Math.random() * 50}`;
-        addComponent({ name: uniqueId, component: children });
         return () => removeComponent(uniqueId);
-    }, [children, name]);
+    }, []);
+
+    useEffect(() => {
+        addComponent({ name: uniqueId, component: children });
+    }, [children]);
 
     return null;
 }
