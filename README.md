@@ -21,7 +21,7 @@ npm install @nexara/nativeflow
 
 ## 📚 Documentation 📚
 
-Check out the **[📝 full documentation](https://rn-nativeflow-docs.onrender.com/docs/getting-started)** for more details on usage, customization, and API references.
+Check out the **[📝 full documentation](https://nexara-nativeflow-docs.onrender.com/docs/getting-started)** for more details on usage, customization, and API references.
 
 ---
 
